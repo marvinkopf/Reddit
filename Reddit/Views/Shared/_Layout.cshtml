@@ -13,12 +13,12 @@
     </environment>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div id="topbar">
         <div class="container">
-            <div class="navbar-header">
+            <div class="header">
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand">Reddit</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar">
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>

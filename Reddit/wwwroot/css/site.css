@@ -1,6 +1,6 @@
 body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    margin: 0;
 }
 
 /* Wrapping element */
@@ -10,35 +10,27 @@ body {
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+#topbar {
+    background: #d3d3d3;
+    height: 40px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.header {
+    float: left;
+    font-size: 18px;
 }
 
-/* buttons and links extension to use brackets: [ click me ] */
-.btn-bracketed::before {
-    display:inline-block;
-    content: "[";
-    padding-right: 0.5em;
-}
-.btn-bracketed::after {
-    display:inline-block;
-    content: "]";
-    padding-left: 0.5em;
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+#topbar .navbar li {
+    float: right;
+    margin: 0 8px;
+}
+
+.container {
+    padding: 10px;
 }
