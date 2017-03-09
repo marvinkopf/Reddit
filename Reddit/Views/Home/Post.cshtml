@@ -1,0 +1,14 @@
+@{ ViewData["Title"] = Model.Title; }
+@model Post
+
+<div class="upvote-btn"><span class="upvote"></span>
+    <div>@Model.Score</div><span class="downvote"></span></div>
+<post post="@Model"></post>
+
+    <ul>
+        @foreach (var item in Model.Comments) {
+        <li>
+            @item.Txt
+        </li>
+        }
+    </ul>

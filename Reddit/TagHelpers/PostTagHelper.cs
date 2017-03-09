@@ -27,7 +27,7 @@ namespace Reddit.TagHelpers
             output.Content.SetHtmlContent(
                 $"<a class=\"post-title\" href=//{Post.Link}>{Post.Title}</a><br>" +
                 $"<a href=/user/{Post.Creator.Id}>{Post.Creator.Email}</a> | " +
-                $"{Post.Created:dd / MM / yyyy} | <a href=>{Post.Comments.Count()} comments</a>");
+                $"{Post.Created:dd / MM / yyyy} | <a href='/post/{Post.PostId}'>{Post.Comments.Count()} comments</a>");
         }
     }
 }
