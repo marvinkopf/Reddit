@@ -48,5 +48,9 @@ namespace Reddit.Controllers
             return Ok();
         }
 
+        [HttpGet("{id:int}/comments")]
+        public IEnumerable<Comment> GetComments(int id) =>
+            _context.Posts.Include(p => p.Creator).Include(p => p.Comments)
+                .First(p => p.PostId == id && p.Creator.Id == _manager.GetUserId(HttpContext.User)).Comments;
     }
 }
