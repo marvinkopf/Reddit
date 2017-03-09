@@ -34,3 +34,57 @@ body {
 .container {
     padding: 10px;
 }
+
+.body-content ul {
+    list-style-type: none;
+    margin-left: 50px;
+}
+
+.body-content ul li {
+    margin: 10px 0;
+    display: flex;
+}
+
+.body-content ul a {
+    font-size: medium;
+    text-decoration: none;
+}
+
+.post {
+    margin: 10px 0;
+}
+
+.count {
+    margin: 15px 5px;
+    width: 16px;
+}
+
+.upvote-btn {
+    margin: 0 10px;
+}
+
+.upvote {
+    display: inline-block;
+    overflow: hidden;
+    width: 25px;
+    height: 15px;
+    cursor: pointer;
+    background: url('http://i.stack.imgur.com/iqN2k.png');
+    background-position: -10px -25px;
+} 
+
+.downvote {
+    display: inline-block;
+    overflow: hidden;
+    width: 25px;
+    height: 15px;
+    cursor: pointer;
+    background: url('http://i.stack.imgur.com/iqN2k.png');
+    background-position: -10px -25px;
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
