@@ -38,10 +38,16 @@ namespace Reddit.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Post post)
+        public async Task<IActionResult> Post(string link, string title)
         {
+            var post = new Post() { Link = link, Title = title };
             post.Creator = await _manager.GetUserAsync(HttpContext.User);
             post.Created = DateTime.Now;
+            post.Score = 0;
+
+            // Temporary
+            post.PostId = _context.Posts.Last().PostId + 1;
+
             _context.Posts.Add(post);
             _context.SaveChanges();
             return Ok();
