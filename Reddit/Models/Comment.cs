@@ -16,6 +16,8 @@ namespace Reddit.Models
 
         public ApplicationUser Creator { get; set; }
 
+        public int PostId { get; set; }
+
         public Post Post { get; set; }
 
         public int Score { get; set; }
