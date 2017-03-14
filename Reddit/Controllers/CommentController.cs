@@ -39,14 +39,19 @@ namespace Reddit.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Comment comment)
+        public async Task<IActionResult> Post(string txt, int postId)
         {
+            var comment = new Comment() { Txt = txt };
+            comment.Post = _context.Posts.First(p => p.PostId == postId);
             comment.Creator = await _manager.GetUserAsync(HttpContext.User);
             comment.Created = DateTime.Now;
+
+            // Temporary
+            comment.CommentId = _context.Comments.Last().CommentId + 1;
+
             _context.Comments.Add(comment);
             _context.SaveChanges();
             return Ok();
         }
-
     }
 }

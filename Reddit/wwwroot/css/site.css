@@ -37,11 +37,12 @@ body {
 
 .body-content ul {
     list-style-type: none;
-    margin-left: 50px;
+    margin: 0;
+    padding: 0;
 }
 
 .body-content ul li {
-    margin: 10px 0;
+    margin: 0;
     display: flex;
 }
 
@@ -55,12 +56,12 @@ body {
 }
 
 .count {
-    margin: 15px 5px;
+    margin: 15px 0;
     width: 16px;
 }
 
 .upvote-btn {
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .upvote {

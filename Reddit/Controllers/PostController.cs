@@ -24,7 +24,7 @@ namespace Reddit.Controllers
             _manager = manager;
         }
         
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "Get")]
         public Post Get(int id) =>
             _context.Posts.First(p => p.PostId == id);
 
@@ -38,9 +38,8 @@ namespace Reddit.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post(string link, string title)
+        public async Task<IActionResult> Post(Post post)
         {
-            var post = new Post() { Link = link, Title = title };
             post.Creator = await _manager.GetUserAsync(HttpContext.User);
             post.Created = DateTime.Now;
             post.Score = 0;
@@ -50,7 +49,7 @@ namespace Reddit.Controllers
 
             _context.Posts.Add(post);
             _context.SaveChanges();
-            return Ok();
+            return CreatedAtRoute("Get", new { id = post.PostId }, post);
         }
 
         [HttpGet("{id:int}/comments")]

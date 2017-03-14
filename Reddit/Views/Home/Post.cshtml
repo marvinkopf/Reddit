@@ -5,6 +5,12 @@
     <div>@Model.Score</div><span class="downvote"></span></div>
 <post post="@Model"></post>
 
+<form method="post" enctype='application/json' action="/api/comment">
+  <input type="text" id="Txt" name="Txt" value="" />
+  <input type="hidden" id="postId" name="postId" value="@Model.PostId" />
+  <input type="submit" class="button" value="Submit">
+</form>
+
     <ul>
         @foreach (var item in Model.Comments) {
         <li>
