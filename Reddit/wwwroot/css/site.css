@@ -89,3 +89,25 @@ body {
     filter: FlipV;
     -ms-filter: "FlipV";
 }
+
+.comment {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.comment .author {
+    font-weight: bold;
+    margin-right: 0.5em;
+    color: #369;
+}
+
+.comment .date {
+    color: grey;
+}
+
+.comment .author,
+.comment .score,
+.comment .date {
+    margin-right: 0.5em;
+    font-size: small;
+}

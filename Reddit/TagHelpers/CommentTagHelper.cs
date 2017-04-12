@@ -25,7 +25,31 @@ namespace Reddit.TagHelpers
 
             output.Attributes.Add("class", "comment");
 
-            output.Content.SetHtmlContent(Comment.Txt);
+            var timePassed = TimePassedAsString(Comment.Created);
+
+            output.Content.SetHtmlContent($"<a href='user/{Comment.Creator.Id} class='author'>{Comment.Creator.Email}</a>" +
+                $"<span class='score'><b>{Comment.Score} Points</b></span>" +
+                $"<span class='date'>{timePassed}</span><br>" +
+                $"{Comment.Txt}");
+        }
+
+        private string TimePassedAsString(DateTime time)
+        {
+            var difference = DateTime.Now.Subtract(time);
+
+            if (difference.Days >= 30)
+            {
+                var countMonths = difference.Days / 30;
+                return difference.Days / 30 + " months ago";
+            }
+            else if (difference.Days > 0)
+                return difference.Days + " days ago";
+            else if (difference.Hours > 0)
+                return difference.Hours + " hours ago";
+            else if (difference.Minutes > 0)
+                return difference.Minutes + " minutes ago";
+
+            return "<1min ago";
         }
     }
 }
