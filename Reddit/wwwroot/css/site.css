@@ -1,6 +1,11 @@
 body {
     padding-bottom: 20px;
     margin: 0;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
 }
 
 /* Wrapping element */
@@ -8,11 +13,13 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    grid-area: main;
 }
 
 #topbar {
     background: #d3d3d3;
     height: 36px;
+    grid-area: header;
 }
 
 .header {
