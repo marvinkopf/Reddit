@@ -23,7 +23,7 @@ namespace Reddit.TagHelpers
             output.TagName = "div";
 
             output.Attributes.Add("class", "post");
-
+            
             output.Content.SetHtmlContent(
                 $"<a class=\"post-title\" href=//{Post.Link}>{Post.Title}</a><br>" +
                 $"<a href=/user/{Post.Creator.Id}>{Post.Creator.Email}</a> | " +

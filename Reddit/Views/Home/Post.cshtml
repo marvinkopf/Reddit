@@ -1,9 +1,18 @@
 @{ ViewData["Title"] = Model.Title; }
 @model Post
 
-<div class="upvote-btn"><span class="upvote"></span>
-    <div>@Model.Score</div><span class="downvote"></span></div>
-<post post="@Model"></post>
+<div class="post">
+                <div class="upvote-btn"><span class="upvote"></span>
+                <div>@Model.Score</div><span class="downvote"></span></div>
+                <div class="content">
+                    <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
+                    <div class="sub">
+                        <a class="creator" href=/user/@Model.Creator.Id>@Model.Creator.Email</a> | 
+                        @Model.Created.ToString("dd / MM / yyyy") | 
+                        <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
+                    </div>
+                </div>
+            </div>
 
 <form action="#" onsubmit="post_form(this, '/api/comment')">
   <input type="text" id="Txt" name="Txt" value="" />

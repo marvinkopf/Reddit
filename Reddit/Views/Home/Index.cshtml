@@ -3,12 +3,21 @@
 @model IEnumerable<Post>
 
     <ul>
-        @{int i = 1;} @foreach (var item in Model) {
+        @{int i = 1;} @foreach (var post in Model) {
         <li>
             <div class="count">@i</div>
-            <div class="upvote-btn"><span class="upvote"></span>
-                <div>@item.Score</div><span class="downvote"></span></div>
-            <post post="@item"></post>
+            <div class="post">
+                <div class="upvote-btn"><span class="upvote"></span>
+                <div>@post.Score</div><span class="downvote"></span></div>
+                <div class="content">
+                    <a class=\"post-title\" href=//@post.Link>@post.Title</a><br>
+                    <div class="sub">
+                        <a class="creator" href=/user/@post.Creator.Id>@post.Creator.Email</a> | 
+                        @post.Created.ToString("dd / MM / yyyy") | 
+                        <a href='/post/@post.PostId'>@post.Comments.Count() comments</a>
+                    </div>
+                </div>
+            </div>
         </li>
         i++; }
     </ul>
