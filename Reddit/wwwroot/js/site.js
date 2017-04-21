@@ -3,7 +3,7 @@
 function post_form(form, target) {
     var fields = {};
 
-    $(form).find("input").each(function () {
+    $(form).find("input,textarea").each(function () {
         fields[$(this).attr("name")] = $(this).val();
     });
 

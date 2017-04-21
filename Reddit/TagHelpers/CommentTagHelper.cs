@@ -18,7 +18,7 @@ namespace Reddit.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (Comment == null)
+            if (Comment == null || Comment.Txt == null)
                 return;
 
             output.TagName = "div";
@@ -27,10 +27,22 @@ namespace Reddit.TagHelpers
 
             var timePassed = TimePassedAsString(Comment.Created);
 
+            string txt = "";
+
+            foreach (var c in Comment.Txt)
+            {
+                if (c == '\n')
+                    txt += "<br>";
+                else if (c == ' ')
+                    txt += "&nbsp";
+                else
+                    txt += c;
+            }
+
             output.Content.SetHtmlContent($"<a href='user/{Comment.Creator.Id} class='author'>{Comment.Creator.Email}</a>" +
                 $"<span class='score'><b>{Comment.Score} Points</b></span>" +
                 $"<span class='date'>{timePassed}</span><br>" +
-                $"{Comment.Txt}");
+                $"{txt}");
         }
 
         private string TimePassedAsString(DateTime time)
