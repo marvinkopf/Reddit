@@ -13,7 +13,8 @@ CREATE TABLE comments (
     creatorId TEXT REFERENCES AspNetUsers(Id),
     created DATE,
     postId INTEGER(5) REFERENCES posts,
-    score UNSIGNED INTEGER(5)
+    score UNSIGNED INTEGER(5),
+    parentId INTEGER(5) REFERENCES comments(commentId)
 );
 
 INSERT INTO posts VALUES (0, 'Check out this search engine! (google)', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.google.de', 231);

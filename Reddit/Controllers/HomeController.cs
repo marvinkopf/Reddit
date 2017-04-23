@@ -24,7 +24,10 @@ namespace Reddit.Controllers
 
         [HttpGet("[action]/{id:int}")]
         public IActionResult Post(int id) =>
-            View(_context.Posts.Include(p => p.Creator).Include(p => p.Comments).First(p => p.PostId == id));
+            View(_context.Posts
+                            .Include(p => p.Creator)
+                            .Include(p => p.Comments).ThenInclude(c => c.Children)
+                            .First(p => p.PostId == id));
 
         [Authorize]
         public IActionResult Submit() => View();

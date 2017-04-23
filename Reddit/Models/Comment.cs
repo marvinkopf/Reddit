@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Reddit.Models
 {
@@ -15,6 +16,13 @@ namespace Reddit.Models
         public DateTime Created { get; set; }
 
         public ApplicationUser Creator { get; set; }
+
+        public Comment Parent { get; set; }
+
+        public int? ParentId { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Comment> Children { get; set; }
 
         public int PostId { get; set; }
 
