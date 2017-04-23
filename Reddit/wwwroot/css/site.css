@@ -76,7 +76,6 @@ a:hover {
 
 .body-content ul li {
     margin: 0;
-    display: flex;
 }
 
 .body-content ul a {
@@ -146,6 +145,9 @@ a:hover {
 .comment {
     margin-top: 5px;
     margin-bottom: 5px;
+    border: solid 1px #ddf;
+    margin: 8px;
+    padding: 5px;
 }
 
 .comment .author {
