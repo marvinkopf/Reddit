@@ -1,0 +1,58 @@
+@model Comment
+
+@{
+    if (@Model == null || @Model.Txt == null)
+    {
+        return;
+    }
+
+    string txt = "";
+
+    foreach (var c in Model.Txt)
+    {
+        if (c == '\n')
+        {
+            txt += "<br />";
+        }
+        else if (c == ' ')
+        {
+            txt += "&nbsp";
+        }
+        else
+        {
+            txt += c;
+        }
+    }
+
+    HtmlString htmlTxt = new HtmlString(txt);
+
+    var timePassed = TimePassedAsString(Model.Created);
+}
+
+<div class="comment">
+    <a href="user/@Model.Creator.Id" class='author'>@Model.Creator.Email</a>
+    <span class='score'><b>@Model.Score Points</b></span>
+    <span class="date">@timePassed</span><br>
+    @htmlTxt
+</div>
+
+@functions {
+    string TimePassedAsString(DateTime time)
+    {
+        var difference = DateTime.Now.Subtract(time);
+
+        if (difference.Days >= 30)
+        {
+            var countMonths = difference.Days / 30;
+            return difference.Days / 30 + " months ago";
+        }
+        else if (difference.Days > 0)
+            return difference.Days + " days ago";
+        else if (difference.Hours > 0)
+            return difference.Hours + " hours ago";
+        else if (difference.Minutes > 0)
+            return difference.Minutes + " minutes ago";
+
+        return "<1min ago";
+    }
+}

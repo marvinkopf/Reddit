@@ -1,0 +1,9 @@
+@model Post
+
+@if (Model == null) { return; }
+
+<div class="post">
+    <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
+    <a href=/user/@Model.Creator.Id>@Model.Creator.Email</a> |
+    @Model.Created | <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
+</div>

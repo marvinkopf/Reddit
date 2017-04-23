@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
 @{ ViewData["Title"] = Model.Title; }
 @model Post
 
@@ -28,9 +29,9 @@
 </form>
 
     <ul style="margin-left:10px">
-        @foreach (var item in Model.Comments) {
+        @foreach (var item in Model.Comments.Where(c => c.Parent == null)) {
         <li>
-            <comment comment=@item></comment>
+            @Html.Partial("_CommentPartial",item)
         </li>
         }
     </ul>
