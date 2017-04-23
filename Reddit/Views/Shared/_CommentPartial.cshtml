@@ -6,26 +6,6 @@
         return;
     }
 
-    string txt = "";
-
-    foreach (var c in Model.Txt)
-    {
-        if (c == '\n')
-        {
-            txt += "<br />";
-        }
-        else if (c == ' ')
-        {
-            txt += "&nbsp";
-        }
-        else
-        {
-            txt += c;
-        }
-    }
-
-    HtmlString htmlTxt = new HtmlString(txt);
-
     var timePassed = TimePassedAsString(Model.Created);
 }
 
@@ -33,7 +13,8 @@
     <a href="/user/@Model.Creator.Id" class='author'>@Model.Creator.Email</a>
     <span class='score'><b>@Model.Score Points</b></span>
     <span class="date">@timePassed</span><br>
-    @htmlTxt
+    <span style="white-space: pre-line">@Model.Txt</span>
+
 
     @foreach (var childComment in @Model.Children)
     {<div class="comment" style="padding-left: 30px">
