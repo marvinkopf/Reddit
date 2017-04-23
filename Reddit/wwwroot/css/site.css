@@ -76,6 +76,7 @@ a:hover {
 
 .body-content ul li {
     margin: 0;
+    display: flex;
 }
 
 .body-content ul a {

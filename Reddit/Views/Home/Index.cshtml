@@ -6,25 +6,7 @@
         @{int i = 1;} @foreach (var post in Model) {
         <li>
             <div class="count">@i</div>
-            <div class="post">
-                <div class="upvote-btn">
-                    <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score)" class="upvote">
-                        <div id="@post.PostId-uplayer"></div>
-                    </span>
-                    <div id="@post.PostId-score">@post.Score</div>
-                    <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score)" class="downvote">
-                        <div id="@post.PostId-downlayer"></div>
-                    </span>
-                </div>
-                <div class="content">
-                    <a class=\"post-title\" href=//@post.Link>@post.Title</a><br>
-                    <div class="sub">
-                        <a class="creator" href=/user/@post.Creator.Id>@post.Creator.Email</a> | 
-                        @post.Created.ToString("dd / MM / yyyy") | 
-                        <a href='/post/@post.PostId'>@post.Comments.Count() comments</a>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("_PostPartial", post)
         </li>
         i++; }
     </ul>

@@ -2,6 +2,22 @@
 
 @if (Model == null) { return; }
 
-<a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
-<a href=/user/@Model.Creator.Id>@Model.Creator.Email</a> |
-@Model.Created | <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
+<div class="post">
+    <div class="upvote-btn">
+        <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score)" class="upvote">
+            <div id="@Model.PostId-uplayer"></div>
+        </span>
+        <div id="@Model.PostId-score">@Model.Score</div>
+        <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score)" class="downvote">
+            <div id="@Model.PostId-downlayer"></div>
+        </span>
+    </div>
+    <div class="content">
+        <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
+        <div class="sub">
+            <a class="creator" href=/user/@Model.Creator.Id>@Model.Creator.Email</a> | 
+            @Model.Created.ToString("dd / MM / yyyy") | 
+            <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
+        </div>
+    </div>
+</div>
