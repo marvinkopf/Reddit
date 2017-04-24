@@ -9,5 +9,8 @@ namespace Reddit.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
+        public ICollection<User_X_Post_Upvoted> UpvotedPosts { get; set; }
+
+        public ICollection<User_X_Post_Downvoted> DownvotedPosts { get; set; }
     }
 }

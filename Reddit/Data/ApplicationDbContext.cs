@@ -25,10 +25,36 @@ namespace Reddit.Data
             builder.Entity<Comment>()
                     .HasOne(c => c.Parent)
                     .WithMany(c => c.Children);
+
+            builder.Entity<User_X_Post_Upvoted>()
+                    .HasKey(x => new { x.UserId, x.PostId });
+
+            builder.Entity<User_X_Post_Upvoted>()
+                    .HasOne<Post>(x => x.Post)
+                    .WithMany(p => p.UpvotedBy);
+
+            builder.Entity<User_X_Post_Upvoted>()
+                    .HasOne<ApplicationUser>(x => x.User)
+                    .WithMany(u => u.UpvotedPosts);
+
+            builder.Entity<User_X_Post_Downvoted>()
+                    .HasKey(x => new { x.UserId, x.PostId });
+
+            builder.Entity<User_X_Post_Downvoted>()
+                    .HasOne<Post>(x => x.Post)
+                    .WithMany(p => p.DownvotedBy);
+
+            builder.Entity<User_X_Post_Downvoted>()
+                    .HasOne<ApplicationUser>(x => x.User)
+                    .WithMany(u => u.DownvotedPosts);
         }
 
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<User_X_Post_Upvoted> User_X_Post_Upvoted { get; set; }
+
+        public DbSet<User_X_Post_Downvoted> User_X_Post_Downvoted { get; set; }
     }
 }

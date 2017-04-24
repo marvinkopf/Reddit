@@ -19,7 +19,11 @@ namespace Reddit.Controllers
         }
         public IActionResult Index()
         {
-            return View(_context.Posts.Include(p => p.Comments).Include(p => p.Creator));
+            return View(_context.Posts
+                                    .Include(p => p.Comments)
+                                    .Include(p => p.Creator)
+                                    .Include(p => p.UpvotedBy)
+                                    .Include(p => p.DownvotedBy));
         }
 
         [HttpGet("[action]/{id:int}")]
@@ -27,6 +31,8 @@ namespace Reddit.Controllers
             View(_context.Posts
                             .Include(p => p.Creator)
                             .Include(p => p.Comments).ThenInclude(c => c.Children)
+                            .Include(p => p.UpvotedBy)
+                            .Include(p => p.DownvotedBy)
                             .First(p => p.PostId == id));
 
         [Authorize]

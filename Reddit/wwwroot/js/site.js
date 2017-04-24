@@ -11,8 +11,7 @@ function post_form(form, target) {
 }
 
 function upvote_post(postId, oldScore) {
-    // Fake
-    $.post("api/post/" + postId);
+    $.post("api/post/" + postId + "/upvote");
 
     $("#" + postId + "-score").text(oldScore + 1);
     $("#" + postId + "-score").attr({ "style" : "color:orange;" });
@@ -24,8 +23,7 @@ function upvote_post(postId, oldScore) {
 }
 
 function un_upvote_post(postId, oldScore) {
-    // Fake
-    $.post("api/post/" + postId);
+    $.post("api/post/" + postId + "/unupvote");
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style" : "" });
@@ -34,8 +32,7 @@ function un_upvote_post(postId, oldScore) {
 }
 
 function downvote_post(postId, oldScore) {
-    // Fake
-    $.post("api/post/" + postId);
+    $.post("api/post/" + postId + "/downvote");
 
     $("#" + postId + "-score").text(oldScore - 1);
     $("#" + postId + "-score").attr({ "style" : "color:blue;" });
@@ -47,8 +44,7 @@ function downvote_post(postId, oldScore) {
 }
 
 function un_downvote_post(postId, oldScore) {
-    // Fake
-    $.post("api/post/" + postId);
+    $.post("api/post/" + postId + "/undownvote");
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style" : "" });
