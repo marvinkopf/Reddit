@@ -93,3 +93,11 @@ function un_downvote_comment(commentId, oldScore) {
     $("#comment-" + commentId + "-downbtn").attr({ "onclick" : "downvote_comment(" + commentId + "," + oldScore + ")" });
     $("#comment-" + commentId + "-downlayer").attr({ "style" : "" });
 }
+
+function show_comment_reply_input(commentId) {
+    $("#comment-" + commentId + "-textarea").attr({ "style" : ""});
+}
+
+function hide_comment_reply_input(commentId) {
+    $("#comment-" + commentId + "-textarea").attr({ "style" : "display:none"});
+}

@@ -92,11 +92,6 @@ a:hover {
     padding-top: 10px;
 }
 
-.post .content .sub, .post .content .sub a {
-    color: slategray;
-    font-size: small;
-}
-
 .post .content .sub .creator {
     color: #369;
 }
@@ -173,5 +168,16 @@ a:hover {
 
 .comment-input {
     width: 500px;
+}
+
+textarea.comment-input {
     height: 100px;
 }
+
+.post .content .sub,
+.post .content .sub a,
+.comment .sub * {
+    color: slategray;
+    font-size: small;
+}
+
