@@ -31,6 +31,8 @@ namespace Reddit.Controllers
             View(_context.Posts
                             .Include(p => p.Creator)
                             .Include(p => p.Comments).ThenInclude(c => c.Children)
+                            .Include(p => p.Comments).ThenInclude(c => c.UpvotedBy)
+                            .Include(p => p.Comments).ThenInclude(c => c.DownvotedBy)
                             .Include(p => p.UpvotedBy)
                             .Include(p => p.DownvotedBy)
                             .First(p => p.PostId == id));

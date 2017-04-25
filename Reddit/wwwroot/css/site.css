@@ -149,6 +149,9 @@ a:hover {
     border: solid 1px #ddf;
     margin: 8px;
     padding: 5px;
+    display: grid;
+    grid-template-areas: "upvote content";
+    grid-template-columns: 40px auto;
 }
 
 .comment .author {

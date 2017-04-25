@@ -29,5 +29,9 @@ namespace Reddit.Models
         public Post Post { get; set; }
 
         public int Score { get; set; }
+
+        public ICollection<User_X_Comment_Upvoted> UpvotedBy { get; set; }
+
+        public ICollection<User_X_Comment_Downvoted> DownvotedBy { get; set; }
     }
 }

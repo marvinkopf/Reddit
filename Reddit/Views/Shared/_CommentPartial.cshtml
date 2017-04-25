@@ -1,3 +1,4 @@
+@inject UserManager<ApplicationUser> userManager
 @model Tuple<Comment, bool>
 
 @{
@@ -19,17 +20,58 @@
 
     var timePassed = TimePassedAsString(Model.Item1.Created);
 }
+<div class="upvote-btn">
+    @{
+        if (Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
+        {
+            <span id="comment-@Model.Item1.CommentId-upbtn" onclick="un_upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score - 1)" class="upvote">
+                <div id="comment-@Model.Item1.CommentId-uplayer"
+                    style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
+            </span>
+            <div id="comment-@Model.Item1.CommentId-score" style="color:orange">@Model.Item1.Score</div>
+    
+            <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score - 1)" class="downvote">
+                <div id="comment-@Model.Item1.CommentId-downlayer"></div>
+            </span>
+        }
+        else if (Model.Item1.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.Item1.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted)
+        {
+            <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score + 1)" class="upvote">
+                <div id="comment-@Model.Item1.CommentId-uplayer"></div>
+            </span>
+            <div id="comment-@Model.Item1.CommentId-score" style="color:blue">@Model.Item1.Score</div>
+    
+            <span id="comment-@Model.Item1.CommentId-downbtn" onclick="un_downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score + 1)" class="downvote">
+                <div id="comment-@Model.Item1.CommentId-downlayer"
+                    style="background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"></div>
+            </span>
+        }
+        else
+        {
+            <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="upvote">
+                <div id="comment-@Model.Item1.CommentId-uplayer"></div>
+            </span>
+            <div id="comment-@Model.Item1.CommentId-score">@Model.Item1.Score</div>
+    
+            <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="downvote">
+                <div id="comment-@Model.Item1.CommentId-downlayer"></div>
+            </span>
+        }
+    }
+</div>
 
-<a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
-<span class='score'><b>@Model.Item1.Score Points</b></span>
-<span class="date">@timePassed</span><br>
-<span style="white-space: pre-line">@Model.Item1.Txt</span>
+<div class="content" style="margin-top:5px;">
+    <a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
+    <span class='score'><b>@Model.Item1.Score Points</b></span>
+    <span class="date">@timePassed</span><br>
+    <span style="white-space: pre-line">@Model.Item1.Txt</span>
 
 
-@foreach (var childComment in @Model.Item1.Children)
-{<div class="comment" style="margin-left: 15px; background-color: @backgroundcolor;">
-    @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))</div>
-}
+    @foreach (var childComment in @Model.Item1.Children)
+    {<div class="comment" style="margin-left: 15px; background-color: @backgroundcolor;">
+        @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))</div>
+    }
+</div>
 
 @functions {
     string TimePassedAsString(DateTime time)

@@ -31,6 +31,20 @@ CREATE TABLE user_x_post_downvoted (
     PRIMARY KEY(userId, postId)
 );
 
+CREATE TABLE user_x_comment_upvoted (
+    userId VARCHAR(55),
+    commentId INTEGER,
+    upvoted BOOLEAN,
+    PRIMARY KEY(userId, commentId)
+);
+
+CREATE TABLE user_x_comment_downvoted (
+    userId VARCHAR(55),
+    commentId INTEGER,
+    downvoted BOOLEAN,
+    PRIMARY KEY(userId, commentId)
+);
+
 INSERT INTO posts VALUES (0, 'Check out this search engine! (google)', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.google.de', 231);
 INSERT INTO posts VALUES (1, 'Bing is the new google', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.bing.com', 421);
 INSERT INTO posts VALUES (2, 'Spiegel Online', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.spiegel.de', 124);

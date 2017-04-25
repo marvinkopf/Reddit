@@ -51,5 +51,116 @@ namespace Reddit.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+        [Authorize]
+        [HttpPost("{id:int}/[action]")]
+        public async Task<IActionResult> Upvote(int id)
+        {
+            await UnDownvote(id);
+
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+
+            var oldRelation = _context.User_X_Comment_Upvoted.Find(user.Id, id);
+            if (oldRelation == null)
+            {
+                var relation = new User_X_Comment_Upvoted();
+                relation.CommentId = id;
+                relation.UserId = user.Id;
+                relation.Upvoted = true;
+                _context.User_X_Comment_Upvoted.Add(relation);
+
+                var Comment = _context.Comments.Find(id);
+                Comment.Score += 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+            }
+            else if (!oldRelation.Upvoted)
+            {
+                var Comment = _context.Comments.Find(id);
+                Comment.Score += 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+
+                oldRelation.Upvoted = true;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("{id:int}/[action]")]
+        public async Task<IActionResult> UnUpvote(int id)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var oldRelation = _context.User_X_Comment_Upvoted.Find(user.Id, id);
+            if (oldRelation != null && oldRelation.Upvoted)
+            {
+                var Comment = _context.Comments.Find(id);
+                Comment.Score -= 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+
+                oldRelation.Upvoted = false;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+
+        [HttpPost("{id:int}/[action]")]
+        public async Task<IActionResult> Downvote(int id)
+        {
+            await UnUpvote(id);
+
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+
+            var oldRelation = _context.User_X_Comment_Downvoted.Find(user.Id, id);
+            if (oldRelation == null)
+            {
+                var relation = new User_X_Comment_Downvoted();
+                relation.CommentId = id;
+                relation.UserId = user.Id;
+                relation.Downvoted = true;
+                _context.User_X_Comment_Downvoted.Add(relation);
+
+                var Comment = _context.Comments.Find(id);
+                Comment.Score -= 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+            }
+            else if (!oldRelation.Downvoted)
+            {
+                var Comment = _context.Comments.Find(id);
+                Comment.Score -= 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+
+                oldRelation.Downvoted = true;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("{id:int}/[action]")]
+        public async Task<IActionResult> UnDownvote(int id)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var oldRelation = _context.User_X_Comment_Downvoted.Find(user.Id, id);
+            if (oldRelation != null && oldRelation.Downvoted)
+            {
+                var Comment = _context.Comments.Find(id);
+                Comment.Score += 1;
+                _context.Entry(Comment).State = EntityState.Modified;
+
+                oldRelation.Downvoted = false;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
     }
 }
