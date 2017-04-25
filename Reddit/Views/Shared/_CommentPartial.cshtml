@@ -62,7 +62,7 @@
     <div class="content" style="margin-top:5px;margin-left:5px;margin-bottom:5px;">
         <div>
             <div>
-                <a href="#" class="expander" onclick="toggle_comment(@Model.Item1.CommentId); return false;">+</a>
+                <a href="#" class="expander" style="font-size:small" onclick="toggle_comment(@Model.Item1.CommentId); return false;">[-]</a>
                 <a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
                 <span class="score" id="comment-@Model.Item1.CommentId-score">@Model.Item1.Score Points</span>
                 <span class="date">@timePassed</span><br>
