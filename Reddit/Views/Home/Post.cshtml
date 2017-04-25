@@ -11,7 +11,7 @@
 </form>
 
     <ul style="margin-left:10px;">
-        @foreach (var item in Model.Comments.Where(c => c.Parent == null)) {
+        @foreach (var item in Model.Comments.Where(c => c.Parent == null).OrderByDescending(c => c.Score)) {
         <li style="display: block">
             @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(item, false))
         </li>

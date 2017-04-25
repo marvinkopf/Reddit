@@ -80,7 +80,7 @@
             </form>
         </div>
 
-        @foreach (var childComment in @Model.Item1.Children)
+        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score))
         {
                 @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
         }
