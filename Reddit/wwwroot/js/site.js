@@ -55,8 +55,7 @@ function un_downvote_post(postId, oldScore) {
 function upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/upvote");
 
-    $("#comment-" + commentId + "-score").text(oldScore + 1);
-    $("#comment-" + commentId + "-score").attr({ "style" : "color:orange;" });
+    $("#comment-" + commentId + "-score").text(oldScore + 1 + " Points");
     $("#comment-" + commentId + "-downlayer").attr({ "style" : ""});
     $("#comment-" + commentId + "-downbtn").attr({ "onclick" : "downvote_comment(" + commentId + "," + oldScore + ")" });
     $("#comment-" + commentId + "-upbtn").attr({ "onclick" : "un_upvote_comment(" + commentId + "," + oldScore + ")" });
@@ -67,8 +66,7 @@ function upvote_comment(commentId, oldScore) {
 function un_upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/unupvote");
 
-    $("#comment-" + commentId + "-score").text(oldScore);
-    $("#comment-" + commentId + "-score").attr({ "style" : "" });
+    $("#comment-" + commentId + "-score").text(oldScore + " Points");
     $("#comment-" + commentId + "-upbtn").attr({ "onclick" : "upvote_comment(" + commentId + "," + oldScore + ")" });
     $("#comment-" + commentId + "-uplayer").attr({ "style" : "" });
 }
@@ -76,8 +74,7 @@ function un_upvote_comment(commentId, oldScore) {
 function downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/downvote");
 
-    $("#comment-" + commentId + "-score").text(oldScore - 1);
-    $("#comment-" + commentId + "-score").attr({ "style" : "color:blue;" });
+    $("#comment-" + commentId + "-score").text(oldScore - 1 + " Points");
     $("#comment-" + commentId + "-uplayer").attr({ "style" : "" });
     $("#comment-" + commentId + "-downbtn").attr({ "onclick" : "un_downvote_comment(" + commentId + "," + oldScore + ")" });
     $("#comment-" + commentId + "-upbtn").attr({ "onclick" : "upvote_comment(" + commentId + "," + oldScore + ")" });
@@ -88,8 +85,7 @@ function downvote_comment(commentId, oldScore) {
 function un_downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/undownvote");
 
-    $("#comment-" + commentId + "-score").text(oldScore);
-    $("#comment-" + commentId + "-score").attr({ "style" : "" });
+    $("#comment-" + commentId + "-score").text(oldScore + " Points");
     $("#comment-" + commentId + "-downbtn").attr({ "onclick" : "downvote_comment(" + commentId + "," + oldScore + ")" });
     $("#comment-" + commentId + "-downlayer").attr({ "style" : "" });
 }

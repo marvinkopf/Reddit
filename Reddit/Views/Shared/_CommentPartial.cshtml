@@ -30,7 +30,6 @@
                     <div id="comment-@Model.Item1.CommentId-uplayer"
                         style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
                 </span>
-                <div id="comment-@Model.Item1.CommentId-score" style="color:orange">@Model.Item1.Score</div>
         
                 <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score - 1)" class="downvote">
                     <div id="comment-@Model.Item1.CommentId-downlayer"></div>
@@ -41,7 +40,6 @@
                 <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score + 1)" class="upvote">
                     <div id="comment-@Model.Item1.CommentId-uplayer"></div>
                 </span>
-                <div id="comment-@Model.Item1.CommentId-score" style="color:blue">@Model.Item1.Score</div>
         
                 <span id="comment-@Model.Item1.CommentId-downbtn" onclick="un_downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score + 1)" class="downvote">
                     <div id="comment-@Model.Item1.CommentId-downlayer"
@@ -53,7 +51,6 @@
                 <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="upvote">
                     <div id="comment-@Model.Item1.CommentId-uplayer"></div>
                 </span>
-                <div id="comment-@Model.Item1.CommentId-score">@Model.Item1.Score</div>
         
                 <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="downvote">
                     <div id="comment-@Model.Item1.CommentId-downlayer"></div>
@@ -66,9 +63,9 @@
         <div>
             <div>
                 <a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
-                <span class='score'><b>@Model.Item1.Score Points</b></span>
+                <span class="score" id="comment-@Model.Item1.CommentId-score">@Model.Item1.Score Points</span>
                 <span class="date">@timePassed</span><br>
-                <span style="white-space: pre-line">@Model.Item1.Txt</span>
+                <div style="margin: 5px 0;">@Model.Item1.Txt</div>
             </div>
             <div class="sub">
                 <a href="javascript:void(0);" onclick="show_comment_reply_input(@Model.Item1.CommentId)">Reply</a>
@@ -79,7 +76,7 @@
                 <textarea class="comment-input" id="Txt" name="Txt" value=""></textarea>
                 <input type="hidden" id="parentId" name="parentId" value="@Model.Item1.CommentId" /><br>
                 <input type="submit" class="button">
-                <button onclick="hide_comment_reply_input(@Model.Item1.CommentId)">Cancel</button>
+                <button onclick="hide_comment_reply_input(@Model.Item1.CommentId);return false;">Cancel</button>
             </form>
         </div>
 

@@ -108,6 +108,10 @@ a:hover {
     color: slategray;
 }
 
+.comment .upvote-btn {
+    margin-top: 5px;
+}
+
 .upvote, .downvote {
     margin-left: 5px;
 }
