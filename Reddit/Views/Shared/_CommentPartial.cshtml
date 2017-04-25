@@ -2,9 +2,9 @@
 @model Tuple<Comment, bool>
 
 @{
-    if (Model.Item1 == null || String.IsNullOrWhiteSpace(Model.Item1.Txt))
+    if (Model.Item1.Txt == null || Model.Item1.Txt == "")
     {
-        return;
+        Model.Item1.Txt = ".";
     }
 
     string backgroundcolor = "";
