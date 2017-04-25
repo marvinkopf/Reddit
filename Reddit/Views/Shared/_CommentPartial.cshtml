@@ -77,6 +77,7 @@
             <form action="#" onsubmit="post_form(this, '/api/comment')">
                 <textarea class="comment-input" id="Txt" name="Txt" value=""></textarea>
                 <input type="hidden" id="parentId" name="parentId" value="@Model.Item1.CommentId" /><br>
+                <input type="hidden" id="postId" name="postId" value="@Model.Item1.PostId" /><br>
                 <input type="submit" class="button">
                 <button onclick="hide_comment_reply_input(@Model.Item1.CommentId);return false;">Cancel</button>
             </form>

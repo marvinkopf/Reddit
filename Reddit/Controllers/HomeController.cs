@@ -23,7 +23,9 @@ namespace Reddit.Controllers
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
                                     .Include(p => p.UpvotedBy)
-                                    .Include(p => p.DownvotedBy));
+                                    .Include(p => p.DownvotedBy)
+                                    .OrderByDescending(p => p.Created)
+                                    .Take(30));
         }
 
         [HttpGet("[action]/{id:int}")]
