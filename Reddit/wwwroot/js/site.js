@@ -121,3 +121,20 @@ function load_remaining_comments(commentId) {
 
     comment.find(".hidden").removeClass("hidden");
 }
+
+function hide_child_comments(commentId, element) {
+    var comment = $("#comment-" + commentId);
+
+    if ($(element).text() === "hide child comments")
+    {
+        comment.find(".comment").addClass("hidden");
+        comment.find(".remaining-comments").addClass("hidden");
+        $(element).text("show child comments");
+    }
+    else
+    {
+        comment.find(".comment").removeClass("hidden");
+        comment.find(".remaining-comments").removeClass("hidden");
+        $(element).text("hide child comments");
+    }
+}

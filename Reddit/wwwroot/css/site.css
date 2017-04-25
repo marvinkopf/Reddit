@@ -103,8 +103,12 @@ a:hover {
     color: slategray;
 }
 
+.sub a {
+    margin-right: 5px;
+}
+
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .upvote-btn {
