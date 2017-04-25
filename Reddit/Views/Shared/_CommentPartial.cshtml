@@ -81,11 +81,25 @@
             </form>
         </div>
 
-        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score))
+        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score).Take(3))
         {
                 @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
         }
 
+        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score).Skip(3))
+        {
+            <div class="hidden">
+                @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
+            </div>
+        }
+
+        @{var remainingComments = @Model.Item1.Children.Count() - 3;}
+        @if (remainingComments > 0)
+        {
+            <a href="#" onclick="load_remaining_comments(@Model.Item1.CommentId); $(this).remove(); return false;">
+                Show remaining comments (@remainingComments replies)
+            </a>
+        }
     </div>
 </div>
 

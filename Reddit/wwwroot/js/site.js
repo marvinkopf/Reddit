@@ -115,3 +115,9 @@ function toggle_comment(commentId) {
         comment.find(".expander").text("-");
     }
 } 
+
+function load_remaining_comments(commentId) {
+    var comment = $("#comment-" + commentId);
+
+    comment.find(".hidden").removeClass("hidden");
+}

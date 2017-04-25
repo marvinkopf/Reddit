@@ -103,6 +103,10 @@ a:hover {
     color: slategray;
 }
 
+.hidden {
+    display: none;
+}
+
 .upvote-btn {
     text-align: center;
     color: slategray;
@@ -114,7 +118,8 @@ a:hover {
 }
 .comment.collapsed .sub,
 .comment.collapsed .text,
-.comment.collapsed .content>.comment {
+.comment.collapsed .content .comment,
+.comment.comment.collapsed .content>a {
     display: none;
 }
 
