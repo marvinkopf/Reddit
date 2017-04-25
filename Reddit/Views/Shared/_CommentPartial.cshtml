@@ -62,7 +62,7 @@
         }
     </div>
 
-    <div class="content" style="margin-top:5px;margin-left:5px;">
+    <div class="content" style="margin-top:5px;margin-left:5px;margin-bottom:5px;">
         <div>
             <div>
                 <a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
@@ -87,6 +87,7 @@
         {
                 @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
         }
+
     </div>
 </div>
 
