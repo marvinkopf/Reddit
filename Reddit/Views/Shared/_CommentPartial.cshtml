@@ -21,7 +21,7 @@
     var timePassed = TimePassedAsString(Model.Item1.Created);
 }
 
-<div class="comment" style="background-color: @backgroundcolor;">
+<div class="comment" style="background-color: @backgroundcolor;" id="comment-@Model.Item1.CommentId">
     <div class="upvote-btn">
         @{
             if (Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
@@ -62,10 +62,11 @@
     <div class="content" style="margin-top:5px;margin-left:5px;margin-bottom:5px;">
         <div>
             <div>
+                <a href="#" class="expander" onclick="toggle_comment(@Model.Item1.CommentId); return false;">+</a>
                 <a href="/user/@Model.Item1.Creator.Id" class='author'>@Model.Item1.Creator.Email</a>
                 <span class="score" id="comment-@Model.Item1.CommentId-score">@Model.Item1.Score Points</span>
                 <span class="date">@timePassed</span><br>
-                <div style="margin: 5px 0;">@Model.Item1.Txt</div>
+                <div  class="text" style="margin: 5px 0;">@Model.Item1.Txt</div>
             </div>
             <div class="sub">
                 <a href="javascript:void(0);" onclick="show_comment_reply_input(@Model.Item1.CommentId)">Reply</a>

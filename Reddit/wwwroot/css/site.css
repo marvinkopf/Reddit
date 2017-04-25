@@ -108,6 +108,16 @@ a:hover {
     color: slategray;
 }
 
+.comment.collapsed .upvote-btn {
+    visibility: hidden;
+    height: 20px;
+}
+.comment.collapsed .sub,
+.comment.collapsed .text,
+.comment.collapsed .content>.comment {
+    display: none;
+}
+
 .comment .upvote-btn {
     margin-top: 5px;
 }

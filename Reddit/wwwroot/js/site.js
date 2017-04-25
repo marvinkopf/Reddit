@@ -97,3 +97,21 @@ function show_comment_reply_input(commentId) {
 function hide_comment_reply_input(commentId) {
     $("#comment-" + commentId + "-textarea").attr({ "style" : "display:none"});
 }
+
+function toggle_comment(commentId) {
+    var comment = $("#comment-" + commentId);
+    var isCollapsed = comment.hasClass("collapsed");
+    
+    if (isCollapsed)
+    {
+        comment.addClass("uncollapsed");
+        comment.removeClass("collapsed");
+        comment.find(".expander").text("+");
+    }
+    else
+    {
+        comment.addClass("collapsed");
+        comment.removeClass("uncollapsed");
+        comment.find(".expander").text("-");
+    }
+} 
