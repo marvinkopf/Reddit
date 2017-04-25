@@ -13,9 +13,7 @@
     <ul style="margin-left:10px;">
         @foreach (var item in Model.Comments.Where(c => c.Parent == null)) {
         <li style="display: block">
-            <div class="comment">
-                @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(item, true))
-            </div>
+            @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(item, true))
         </li>
         }
     </ul>
