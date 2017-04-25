@@ -46,7 +46,7 @@
     <div class="content">
         <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
         <div class="sub">
-            <a class="creator" href=/user/@Model.Creator.Id>@Model.Creator.Email</a> | 
+            <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a> | 
             @Model.Created.ToString("dd / MM / yyyy") | 
             <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
         </div>
