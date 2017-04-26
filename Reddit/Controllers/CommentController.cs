@@ -50,7 +50,7 @@ namespace Reddit.Controllers
             _context.Comments.Add(comment);
             _context.SaveChanges();
             
-            return CreatedAtRoute("Get", new { id = comment.commentId }, comment);
+            return CreatedAtRoute("Get", new { id = comment.CommentId }, comment);
         }
 
         [Authorize]
