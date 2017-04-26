@@ -69,6 +69,14 @@ namespace Reddit.Data
                 builder.Entity<User_X_Comment_Downvoted>()
                         .HasOne<ApplicationUser>(x => x.User)
                         .WithMany(u => u.DownvotedComments);
+
+                builder.Entity<ApplicationUser>()
+                        .HasMany<Comment>(u => u.CreatedComments)
+                        .WithOne(c => c.Creator);
+
+                builder.Entity<ApplicationUser>()
+                        .HasMany<Post>(u => u.CreatedPosts)
+                        .WithOne(p => p.Creator);
         }
 
         public DbSet<Post> Posts { get; set; }

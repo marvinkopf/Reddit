@@ -1,0 +1,74 @@
+@model ApplicationUser
+
+<h3>@Model.UserName</h3>
+@Model.CreatedPosts.Sum(p => p.Score) Link Karma - @Model.CreatedComments.Sum(c => c.Score) Comment Karma
+
+
+<ul style="margin-left:10px;">
+    @{var posts = @Model.CreatedPosts.OrderByDescending(p => p.Created).ToList();}
+    @foreach (var item in Model.CreatedComments.OrderByDescending(c => c.Created)) {
+        @while (posts.Count > 0 && posts[0].Created > item.Created)
+        {
+            <li style="display: block">
+                @Html.Partial("_PostPartial", posts[0])
+            </li>
+            posts.RemoveAt(0);
+        }
+
+    <li style="display: block"><div class="comment" id="comment-@item.CommentId">
+
+
+@{var timePassed = TimePassedAsString(@item.Created);}
+<div class="upvote-btn">
+        <span id="comment-@item.CommentId-upbtn" onclick="upvote_comment(@item.CommentId, @item.Score)" class="upvote">
+                <div id="comment-@item.CommentId-uplayer"></div>
+            </span>
+    
+            <span id="comment-@item.CommentId-downbtn" onclick="downvote_comment(@item.CommentId, @item.Score)" class="downvote">
+                <div id="comment-@item.CommentId-downlayer"></div>
+            </span>
+</div>
+
+<div class="content" style="margin-top:5px;margin-left:5px;margin-bottom:5px;">
+            <div>
+                <a href="#" class="expander" style="font-size:small" onclick="toggle_comment(@item.CommentId); return false;">[-]</a>
+                <a href="/user/@item.Creator.UserName" class='author'>@item.Creator.UserName</a>
+                <span class="score" id="comment-@item.CommentId-score">@item.Score Points</span>
+                <span class="date">@timePassed</span><br>
+                <div  class="text" style="margin: 5px 0;">@item.Txt</div>
+            </div>
+    </div>
+</div>
+    </li>
+    }
+
+    @foreach (var item in posts)
+    {
+         <li style="display: block">
+                @Html.Partial("_PostPartial", item)
+            </li>
+    }
+</ul>
+
+
+
+@functions {
+    string TimePassedAsString(DateTime time)
+    {
+        var difference = DateTime.Now.Subtract(time);
+
+        if (difference.Days >= 30)
+        {
+            var countMonths = difference.Days / 30;
+            return difference.Days / 30 + " months ago";
+        }
+        else if (difference.Days > 0)
+            return difference.Days + " days ago";
+        else if (difference.Hours > 0)
+            return difference.Hours + " hours ago";
+        else if (difference.Minutes > 0)
+            return difference.Minutes + " minutes ago";
+
+        return "<1min ago";
+    }
+}

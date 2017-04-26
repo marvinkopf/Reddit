@@ -42,6 +42,19 @@ namespace Reddit.Controllers
         [Authorize]
         public IActionResult Submit() => View();
 
+        [HttpGet("user/{userName}")]
+        public IActionResult UserPage(string userName)
+        {
+            return View("User",
+                _context.Users
+                            .Include(u => u.CreatedComments).ThenInclude(c => c.UpvotedBy)
+                            .Include(u => u.CreatedComments).ThenInclude(c => c.DownvotedBy)
+                            .Include(u => u.CreatedPosts).ThenInclude(p => p.UpvotedBy)
+                            .Include(u => u.CreatedPosts).ThenInclude(p => p.DownvotedBy)
+                            .Include(u => u.CreatedPosts).ThenInclude(p => p.Comments)
+                            .First(u => u.UserName.ToUpper() == userName.ToUpper()));
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

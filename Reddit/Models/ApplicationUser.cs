@@ -16,5 +16,9 @@ namespace Reddit.Models
         public ICollection<User_X_Comment_Upvoted> UpvotedComments { get; set; }
 
         public ICollection<User_X_Comment_Downvoted> DownvotedComments { get; set; }
+
+        public ICollection<Comment> CreatedComments { get; set; }
+
+        public ICollection<Post> CreatedPosts { get; set; }
     }
 }
