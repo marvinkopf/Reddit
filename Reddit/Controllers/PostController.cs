@@ -24,7 +24,7 @@ namespace Reddit.Controllers
             _manager = manager;
         }
         
-        [HttpGet("{id:int}", Name = "Get")]
+        [HttpGet("{id:int}", Name = "GetPost")]
         public Post Get(int id) =>
             _context.Posts.First(p => p.PostId == id);
 
@@ -49,7 +49,7 @@ namespace Reddit.Controllers
 
             _context.Posts.Add(post);
             _context.SaveChanges();
-            return CreatedAtRoute("Get", new { id = post.PostId }, post);
+            return CreatedAtRoute("GetPost", new { id = post.PostId }, post);
         }
 
         [HttpGet("{id:int}/comments")]

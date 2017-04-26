@@ -25,7 +25,7 @@ namespace Reddit.Controllers
             _manager = manager;
         }
         
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetComment")]
         public Comment Get(int id) =>
             _context.Comments.Include(c => c.Creator)
                 .First(c => c.CommentId == id && c.Creator.Id == _manager.GetUserId(HttpContext.User));
@@ -50,7 +50,7 @@ namespace Reddit.Controllers
             _context.Comments.Add(comment);
             _context.SaveChanges();
             
-            return CreatedAtRoute("Get", new { id = comment.CommentId }, comment);
+            return CreatedAtRoute("GetComment", new { id = comment.CommentId }, comment);
         }
 
         [Authorize]
