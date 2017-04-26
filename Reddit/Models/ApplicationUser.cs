@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Reddit.Models
 {
@@ -17,8 +18,10 @@ namespace Reddit.Models
 
         public ICollection<User_X_Comment_Downvoted> DownvotedComments { get; set; }
 
+        [JsonIgnore]
         public ICollection<Comment> CreatedComments { get; set; }
 
+        [JsonIgnore]
         public ICollection<Post> CreatedPosts { get; set; }
     }
 }
