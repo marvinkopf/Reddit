@@ -45,7 +45,7 @@ namespace Reddit.Controllers
             post.Score = 0;
 
             // Temporary
-            post.PostId = _context.Posts.Last().PostId + 1;
+            post.PostId = _context.Posts.Last().PostId + 2;
 
             _context.Posts.Add(post);
             _context.SaveChanges();

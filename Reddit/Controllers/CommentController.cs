@@ -45,7 +45,7 @@ namespace Reddit.Controllers
             comment.Created = DateTime.Now;
 
             // Temporary
-            comment.CommentId = _context.Comments.Last().CommentId + 1;
+            comment.CommentId = _context.Comments.Last().CommentId + 2;
 
             _context.Comments.Add(comment);
             _context.SaveChanges();
@@ -58,7 +58,7 @@ namespace Reddit.Controllers
         public async Task<IActionResult> Upvote(int id)
         {
             await UnDownvote(id);
-
+            
             var user = await _manager.GetUserAsync(HttpContext.User); 
 
             var oldRelation = _context.User_X_Comment_Upvoted.Find(user.Id, id);
@@ -85,7 +85,7 @@ namespace Reddit.Controllers
             }
 
             await _context.SaveChangesAsync();
-
+            
             return Ok();
         }
 
