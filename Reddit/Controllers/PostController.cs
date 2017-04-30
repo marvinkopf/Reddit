@@ -47,6 +47,9 @@ namespace Reddit.Controllers
             // Temporary
             post.PostId = _context.Posts.Last().PostId + 2;
 
+            if(post.Subreddit == null)
+                post.Subreddit = "news";
+
             _context.Posts.Add(post);
             _context.SaveChanges();
             return CreatedAtRoute("GetPost", new { id = post.PostId }, post);

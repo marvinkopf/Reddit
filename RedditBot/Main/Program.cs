@@ -75,6 +75,8 @@ namespace ConsoleApplication
             newsList.AddRange(await GetNews("abc-news-au"));
             newsList.AddRange(await GetNews("bbc-sport"));
 
+            var subs = new []{ "news", "google-news", "abc-news-au", "bbc-sport"};
+
             foreach (var news in newsList)
             {
                 await Login(ran.Next(9000));
@@ -84,7 +86,8 @@ namespace ConsoleApplication
                 var values = new Dictionary<string, string>
                         {
                             { "Title", news.Title },
-                            { "Link", link }
+                            { "Link", link },
+                            { "Subreddit",  subs[ran.Next(4)]}
                         };
 
                 var content = new FormUrlEncodedContent(values);

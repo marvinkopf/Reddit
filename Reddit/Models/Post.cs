@@ -25,5 +25,7 @@ namespace Reddit.Models
         public ICollection<User_X_Post_Upvoted> UpvotedBy { get; set; }
 
         public ICollection<User_X_Post_Downvoted> DownvotedBy { get; set; }
+
+        public string Subreddit { get; set; }
     }
 }

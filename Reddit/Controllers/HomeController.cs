@@ -28,6 +28,19 @@ namespace Reddit.Controllers
                                     .Take(30));
         }
 
+        [HttpGet("r/{sub}")]
+        public IActionResult Sub(string sub)
+        {
+            return View("Index", _context.Posts
+                                    .Include(p => p.Comments)
+                                    .Include(p => p.Creator)
+                                    .Include(p => p.UpvotedBy)
+                                    .Include(p => p.DownvotedBy)
+                                    .Where(p => p.Subreddit == sub)
+                                    .OrderByDescending(p => p.Created)
+                                    .Take(30));
+        }
+
         [HttpGet("[action]/{id:int}")]
         public IActionResult Post(int id) =>
             View(_context.Posts
