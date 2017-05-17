@@ -31,7 +31,9 @@ namespace Reddit.Controllers
         [HttpGet("r/{sub}")]
         public IActionResult Sub(string sub)
         {
-            return View("Index", _context.Posts
+            ViewData["Title"] = sub;
+            
+            return View("Subreddit", _context.Posts
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
                                     .Include(p => p.UpvotedBy)
