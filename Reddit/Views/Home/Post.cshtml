@@ -1,8 +1,58 @@
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
 @{ ViewData["Title"] = Model.Title; }
+@inject UserManager<ApplicationUser> userManager
 @model Post
 
-@Html.Partial("_PostPartial", @Model)
+<div class="post">
+    <div class="upvote-btn">
+        @{
+            if (Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
+            {
+                <span id="@Model.PostId-upbtn" onclick="un_upvote_post(@Model.PostId, @Model.Score - 1)" class="upvote">
+                    <div id="@Model.PostId-uplayer"
+                        style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                </span>
+                <div id="@Model.PostId-score" style="color:orange">@Model.Score</div>
+        
+                <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score - 1)" class="downvote">
+                    <div id="@Model.PostId-downlayer"></div>
+                </span>
+            }
+            else if (Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted)
+            {
+                <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score + 1)" class="upvote">
+                    <div id="@Model.PostId-uplayer"></div>
+                </span>
+                <div id="@Model.PostId-score" style="color:blue">@Model.Score</div>
+        
+                <span id="@Model.PostId-downbtn" onclick="un_downvote_post(@Model.PostId, @Model.Score + 1)" class="downvote">
+                    <div id="@Model.PostId-downlayer"
+                     style="background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                </span>
+            }
+            else
+            {
+                <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score)" class="upvote">
+                    <div id="@Model.PostId-uplayer"></div>
+                </span>
+                <div id="@Model.PostId-score">@Model.Score</div>
+        
+                <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score)" class="downvote">
+                    <div id="@Model.PostId-downlayer"></div>
+                </span>
+            }
+        }
+    </div>
+    <div class="content">
+        <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
+        <div class="sub">
+            <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a> | 
+            @Model.Created.ToString("dd / MM / yyyy") | 
+            <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
+            in <a class="creator" href='/r/@Model.Subreddit'>r/@Model.Subreddit</a>
+        </div>
+    </div>
+</div>
 
 <form style="margin-left:10px" action="#" onsubmit="post_form(this, '/api/comment')">
   <textarea class="comment-input" id="Txt" name="Txt" value=""></textarea>
