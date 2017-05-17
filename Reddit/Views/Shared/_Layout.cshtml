@@ -17,6 +17,7 @@
         <div class="container">
             <div class="header">
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand">reddit</a>
+                <small>@ViewData["Subtitle"]</small>
             </div>
             <div class="navbar">
                 @await Html.PartialAsync("_LoginPartial")

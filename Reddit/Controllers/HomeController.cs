@@ -32,7 +32,8 @@ namespace Reddit.Controllers
         public IActionResult Sub(string sub)
         {
             ViewData["Title"] = sub;
-            
+            ViewData["Subtitle"] = sub;
+
             return View("Subreddit", _context.Posts
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
@@ -56,7 +57,11 @@ namespace Reddit.Controllers
                             .First(p => p.PostId == id));
 
         [Authorize]
-        public IActionResult Submit() => View();
+        public IActionResult Submit()
+        {
+            ViewData["Subtitle"] = "Submit";
+            return View();
+        }
 
         [HttpGet("user/{userName}")]
         public IActionResult UserPage(string userName)
