@@ -66,6 +66,7 @@ namespace Reddit.Controllers
         [HttpGet("user/{userName}")]
         public IActionResult UserPage(string userName)
         {
+            ViewData["Subtitle"] = userName;
             return View("User",
                 _context.Users
                             .Include(u => u.CreatedComments).ThenInclude(c => c.UpvotedBy)
