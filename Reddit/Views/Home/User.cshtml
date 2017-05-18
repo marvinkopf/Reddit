@@ -95,7 +95,56 @@
     @foreach (var item in posts)
     {
          <li style="display: block">
-                @Html.Partial("_PostPartial", item)
+                <div class="post">
+                    <div class="upvote-btn">
+                        @{
+                            if (item.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && item.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
+                            {
+                                <span id="@item.PostId-upbtn" onclick="un_upvote_post(@item.PostId, @item.Score - 1)" class="upvote">
+                                    <div id="@item.PostId-uplayer"
+                                        style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                                </span>
+                                <div id="@item.PostId-score" style="color:orange">@item.Score</div>
+                        
+                                <span id="@item.PostId-downbtn" onclick="downvote_post(@item.PostId, @item.Score - 1)" class="downvote">
+                                    <div id="@item.PostId-downlayer"></div>
+                                </span>
+                            }
+                            else if (item.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && item.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted)
+                            {
+                                <span id="@item.PostId-upbtn" onclick="upvote_post(@item.PostId, @item.Score + 1)" class="upvote">
+                                    <div id="@item.PostId-uplayer"></div>
+                                </span>
+                                <div id="@item.PostId-score" style="color:blue">@item.Score</div>
+                        
+                                <span id="@item.PostId-downbtn" onclick="un_downvote_post(@item.PostId, @item.Score + 1)" class="downvote">
+                                    <div id="@item.PostId-downlayer"
+                                    style="background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                                </span>
+                            }
+                            else
+                            {
+                                <span id="@item.PostId-upbtn" onclick="upvote_post(@item.PostId, @item.Score)" class="upvote">
+                                    <div id="@item.PostId-uplayer"></div>
+                                </span>
+                                <div id="@item.PostId-score">@item.Score</div>
+                        
+                                <span id="@item.PostId-downbtn" onclick="downvote_post(@item.PostId, @item.Score)" class="downvote">
+                                    <div id="@item.PostId-downlayer"></div>
+                                </span>
+                            }
+                        }
+                    </div>
+                    <div class="content">
+                        <a class=\"post-title\" href=//@item.Link>@item.Title</a><br>
+                        <div class="sub">
+                            <a class="creator" href=/user/@item.Creator.UserName>@item.Creator.UserName</a> | 
+                            @item.Created.ToString("dd / MM / yyyy") | 
+                            <a href='/post/@item.PostId'>@item.Comments.Count() comments</a>
+                            in <a class="creator" href='/r/@item.Subreddit'>r/@item.Subreddit</a>
+                        </div>
+                    </div>
+                </div>
             </li>
     }
 </ul>
