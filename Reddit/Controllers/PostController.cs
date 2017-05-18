@@ -31,6 +31,9 @@ namespace Reddit.Controllers
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, [FromBody]Post post)
         {
+            if (id != post.PostId)
+                throw new Exception();
+
              _context.Entry(post).State = EntityState.Modified;
             _context.SaveChanges();
             return Ok();
@@ -38,20 +41,18 @@ namespace Reddit.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post(Post post)
+        public async Task<IActionResult> Post(string title, string link, string subreddit)
         {
-            post.Creator = await _manager.GetUserAsync(HttpContext.User);
-            post.Created = DateTime.Now;
-            post.Score = 0;
-
-            // Temporary
-            post.PostId = _context.Posts.Last().PostId + 2;
-
-            if(post.Subreddit == null)
-                post.Subreddit = "news";
+            var post = new Post(
+                            title,
+                            link,
+                            subreddit,
+                            DateTime.Now,
+                            (await _manager.GetUserAsync(HttpContext.User)).Id);
 
             _context.Posts.Add(post);
             _context.SaveChanges();
+
             return CreatedAtRoute("GetPost", new { id = post.PostId }, post);
         }
 

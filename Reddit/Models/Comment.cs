@@ -32,8 +32,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(
-                    !String.IsNullOrEmpty(value) && !String.IsNullOrWhiteSpace(value));
+                Contract.Requires(!String.IsNullOrWhiteSpace(value));
                 _txt = value;
             }
         }
