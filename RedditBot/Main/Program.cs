@@ -104,6 +104,22 @@ namespace ConsoleApplication
                 
                 await UpvoteLink(int.Parse(location.Split('/')[5]), ran.Next(200));
             }
+
+            // Post hard coded content
+             
+            await Login(ran.Next(9000));
+
+            var _values = new Dictionary<string, string>
+                    {
+                        { "Title", "Check out the source" },
+                        { "Link", "github.com/marvinkopf/Reddit" },
+                        { "UrlToImage", "https://avatars3.githubusercontent.com/u/12144728?v=3&s=460" },
+                        { "Subreddit",  "reddit"}
+                    };
+
+            var _content = new FormUrlEncodedContent(_values);
+
+            var _response = await client.PostAsync("http://localhost:5000/api/post", _content);
         }
 
         public static async Task CommentPost(int id)
@@ -114,7 +130,7 @@ namespace ConsoleApplication
 
                 var values = new Dictionary<string, string>
                     {
-                        { "Txt", RandomString(ran.Next(200) + 1) },
+                        { "Txt", RandomString(ran.Next(200) + 5) },
                         { "PostId", id.ToString() }
                     };
 
