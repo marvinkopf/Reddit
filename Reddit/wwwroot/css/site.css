@@ -89,7 +89,7 @@ a:hover {
 }
 
 .post .content {
-    padding-top: 10px;
+    margin-left: 10px;
 }
 
 .post .content .sub .creator {
@@ -112,6 +112,7 @@ a:hover {
 }
 
 .upvote-btn {
+    margin-left: 10px;
     text-align: center;
     color: slategray;
 }

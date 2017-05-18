@@ -97,5 +97,7 @@ namespace Reddit.Models
         }
 
         public Subreddit Subreddit { get; set; }
+
+        public string UrlToImage { get; set; }
     }
 }

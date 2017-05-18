@@ -64,7 +64,7 @@ namespace Reddit.Models
             }
             set
             {
-                if (value?.PostId == PostId) throw new Exception();
+                if (value?.ParentId == ParentId) throw new Exception();
                 _parent = value;
             }
         }

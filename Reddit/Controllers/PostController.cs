@@ -41,14 +41,16 @@ namespace Reddit.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post(string title, string link, string subreddit)
+        public async Task<IActionResult> Post(string title, string link, string subreddit,
+            string urlToImage)
         {
             var post = new Post(
                             title,
                             link,
                             subreddit,
                             DateTime.Now,
-                            (await _manager.GetUserAsync(HttpContext.User)).Id);
+                            (await _manager.GetUserAsync(HttpContext.User)).Id)
+                            { UrlToImage = urlToImage };
 
             _context.Posts.Add(post);
             _context.SaveChanges();

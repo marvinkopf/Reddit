@@ -5,7 +5,8 @@ CREATE TABLE posts (
     created DATE,
     link TEXT NOT NULL,
     score UNSIGNED INTEGER(5),
-    subreddit VARCHAR(30) REFERENCES subreddits(name)
+    subreddit VARCHAR(30) REFERENCES subreddits(name),
+    urlToImage VARCHAR(55)
 );
 
 CREATE TABLE subreddits (
@@ -55,5 +56,5 @@ INSERT INTO subreddits VALUES ("google-news");
 INSERT INTO subreddits VALUES ("abc-news-au");
 INSERT INTO subreddits VALUES ("bbc-sport");
 
-INSERT INTO posts VALUES (4, 'Imgur', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.imgur.com', 6, 'news');
+INSERT INTO posts VALUES (4, 'Imgur', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.imgur.com', 6, 'news', '');
 INSERT INTO comments VALUES (0, "Awesome!", 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 0, 0, NULL);
