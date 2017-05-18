@@ -141,7 +141,7 @@ namespace ConsoleApplication
 
                 var values = new Dictionary<string, string>
                     {
-                        { "Txt", RandomString(ran.Next(200) + 1) },
+                        { "Txt", RandomString(ran.Next(200) + 5) },
                         { "PostId", postId },
                         { "ParentId", parentId }
                     };
@@ -177,7 +177,7 @@ namespace ConsoleApplication
 
         public static string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789   \n.!?-+,;";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \n.!?-+,;";
             return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[ran.Next(s.Length)]).ToArray());
         }
