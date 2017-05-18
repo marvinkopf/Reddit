@@ -77,6 +77,9 @@ namespace Reddit.Data
                 builder.Entity<ApplicationUser>()
                         .HasMany<Post>(u => u.CreatedPosts)
                         .WithOne(p => p.Creator);
+
+                builder.Entity<Post>()
+                        .Property(p => p.SubredditName).HasColumnName("subreddit");
         }
 
         public DbSet<Post> Posts { get; set; }
@@ -90,5 +93,7 @@ namespace Reddit.Data
         public DbSet<User_X_Comment_Upvoted> User_X_Comment_Upvoted { get; set; }
 
         public DbSet<User_X_Comment_Downvoted> User_X_Comment_Downvoted { get; set; }
+
+        public DbSet<Subreddit> Subreddits { get; set; }
     }
 }

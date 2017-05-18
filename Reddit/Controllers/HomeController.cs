@@ -39,10 +39,13 @@ namespace Reddit.Controllers
                                     .Include(p => p.Creator)
                                     .Include(p => p.UpvotedBy)
                                     .Include(p => p.DownvotedBy)
-                                    .Where(p => p.Subreddit == sub)
+                                    .Where(p => p.SubredditName == sub)
                                     .OrderByDescending(p => p.Created)
                                     .Take(30));
         }
+
+        [HttpGetAttribute("[action]")]
+        public IActionResult CreateSub() => View();
 
         [HttpGet("[action]/{id:int}")]
         public IActionResult Post(int id) =>

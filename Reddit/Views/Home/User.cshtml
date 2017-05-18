@@ -57,7 +57,7 @@
                             <a class="creator" href=/user/@posts[0].Creator.UserName>@posts[0].Creator.UserName</a> | 
                             @posts[0].Created.ToString("dd / MM / yyyy") | 
                             <a href='/post/@posts[0].PostId'>@posts[0].Comments.Count() comments</a>
-                            in <a class="creator" href='/r/@posts[0].Subreddit'>r/@posts[0].Subreddit</a>
+                            in <a class="creator" href='/r/@posts[0].Subreddit'>r/@posts[0].SubredditName</a>
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                             <a class="creator" href=/user/@item.Creator.UserName>@item.Creator.UserName</a> | 
                             @item.Created.ToString("dd / MM / yyyy") | 
                             <a href='/post/@item.PostId'>@item.Comments.Count() comments</a>
-                            in <a class="creator" href='/r/@item.Subreddit'>r/@item.Subreddit</a>
+                            in <a class="creator" href='/r/@item.Subreddit'>r/@item.SubredditName</a>
                         </div>
                     </div>
                 </div>

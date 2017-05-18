@@ -1,0 +1,7 @@
+@{ ViewData["Title"] = "Create Subreddit"; }
+
+<form action="/" onsubmit="post_form(this, '/api/subreddit')">
+  Name<br>
+  <input type="text" id="name" name="name" value="" /><br><br>
+  <input type="submit" class="button" value="Submit">
+</form>

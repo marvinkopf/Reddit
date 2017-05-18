@@ -13,11 +13,11 @@ namespace Reddit.Models
         // Used by EF
         protected Post() { }
 
-        public Post(string title, string url, string subreddit, DateTime created, string creatorId)
+        public Post(string title, string url, string subredditName, DateTime created, string creatorId)
         {
             Title = title;
             Link = url;
-            Subreddit = subreddit;
+            SubredditName = subredditName;
             CreatorId = creatorId;
             Created = created;
         }
@@ -33,7 +33,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(!String.IsNullOrWhiteSpace(value));
+                if (String.IsNullOrWhiteSpace(value)) throw new Exception();
                 _title = value;
             }
         }
@@ -48,7 +48,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(value != null);
+                if (value == null) throw new Exception();
                 _created = value;
             }
         }
@@ -67,7 +67,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(!String.IsNullOrWhiteSpace(value));
+                if (String.IsNullOrWhiteSpace(value)) throw new Exception();
                 _link = value;
             }
         }
@@ -81,19 +81,21 @@ namespace Reddit.Models
 
         public ICollection<User_X_Post_Downvoted> DownvotedBy { get; set; }
 
-        private string _subreddit;
+        private string _subredditName;
 
-        public string Subreddit
+        public string SubredditName
         {
             get
             {
-                return _subreddit;
+                return _subredditName;
             }
             set
             {
-                Contract.Requires(!String.IsNullOrWhiteSpace(value));
-                _subreddit = value;
+                if (String.IsNullOrWhiteSpace(value)) thorw new Exception();
+                _subredditName = value;
             }
         }
+
+        public Subreddit Subreddit { get; set; }
     }
 }

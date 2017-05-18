@@ -32,7 +32,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(!String.IsNullOrWhiteSpace(value));
+               if (String.IsNullOrWhiteSpace(value)) throw new Exception();
                 _txt = value;
             }
         }
@@ -46,7 +46,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(value != null);
+                if (value == null) throw new Exception();
                 _created = value;
             }
         }
@@ -64,7 +64,7 @@ namespace Reddit.Models
             }
             set
             {
-                Contract.Requires(value?.PostId != PostId);
+                if (value?.PostId == PostId) throw new Exception();
                 _parent = value;
             }
         }
