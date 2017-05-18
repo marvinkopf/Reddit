@@ -33,19 +33,22 @@ namespace Reddit.Controllers
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, [FromBody]Comment comment)
         {
-             _context.Entry(comment).State = EntityState.Modified;
+            if (id != comment.CommentId)
+                throw new Exception();
+
+            _context.Entry(comment).State = EntityState.Modified;
             _context.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Comment comment)
+        public async Task<IActionResult> Post(string txt, int postId, int? parentId)
         {
-            comment.Creator = await _manager.GetUserAsync(HttpContext.User);
-            comment.Created = DateTime.Now;
-
-            // Temporary
-            comment.CommentId = _context.Comments.Last().CommentId + 2;
+            var comment = new Comment(
+                            txt,
+                            DateTime.Now,
+                            (await _manager.GetUserAsync(HttpContext.User)).Id,
+                            postId) { ParentId = parentId };
 
             _context.Comments.Add(comment);
             _context.SaveChanges();

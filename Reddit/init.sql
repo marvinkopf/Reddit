@@ -1,5 +1,5 @@
 CREATE TABLE posts (
-    postId INTEGER(5) PRIMARY KEY,
+    postId INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR(30),
     creatorId TEXT REFERENCES AspNetUsers(Id),
     created DATE,
@@ -13,7 +13,7 @@ CREATE TABLE subreddits (
 );
 
 CREATE TABLE comments (
-    commentId INTEGER(5) PRIMARY KEY,
+    commentId INTEGER PRIMARY KEY AUTOINCREMENT,
     txt TEXT,
     creatorId TEXT REFERENCES AspNetUsers(Id),
     created DATE,

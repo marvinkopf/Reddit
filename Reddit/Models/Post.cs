@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Reddit.Models
 {
@@ -20,6 +21,7 @@ namespace Reddit.Models
 
         public int Score { get; set; }
 
+        [JsonIgnore]
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<User_X_Post_Upvoted> UpvotedBy { get; set; }
