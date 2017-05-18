@@ -91,7 +91,7 @@ namespace Reddit.Models
             }
             set
             {
-                if (String.IsNullOrWhiteSpace(value)) thorw new Exception();
+                if (String.IsNullOrWhiteSpace(value)) throw new Exception();
                 _subredditName = value;
             }
         }

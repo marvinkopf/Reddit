@@ -87,6 +87,7 @@ namespace ConsoleApplication
                         {
                             { "Title", news.Title },
                             { "Link", link },
+                            { "UrlToImage", news.UrlToImage },
                             { "Subreddit",  subs[ran.Next(4)]}
                         };
 
