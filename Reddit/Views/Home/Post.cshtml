@@ -54,11 +54,14 @@
     </div>
 </div>
 
-<form style="margin-left:10px" action="#" onsubmit="post_form(this, '/api/comment')">
-  <textarea class="comment-input" id="Txt" name="Txt" value=""></textarea>
-  <input type="hidden" id="postId" name="postId" value="@Model.PostId" /><br>
-  <input type="submit" class="button">
-</form>
+@if (userManager.GetUserId(User) != null)
+{
+    <form style="margin-left:10px" action="#" onsubmit="post_form(this, '/api/comment')">
+    <textarea class="comment-input" id="Txt" name="Txt" value=""></textarea>
+    <input type="hidden" id="postId" name="postId" value="@Model.PostId" /><br>
+    <input type="submit" class="button">
+    </form>
+}
 
     <ul style="margin-left:10px;">
         @foreach (var item in Model.Comments.Where(c => c.Parent == null).OrderByDescending(c => c.Score)) {

@@ -130,6 +130,7 @@ a:hover {
 
 .comment .upvote-btn {
     margin-top: 5px;
+    margin-left: 0;
 }
 
 .upvote, .downvote {

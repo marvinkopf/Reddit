@@ -33,14 +33,32 @@
                         </span>
                     }
                     else {
-                        <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score)" class="upvote">
-                            <div id="@post.PostId-uplayer"></div>
-                        </span>
-                        <div id="@post.PostId-score">@post.Score</div>
+                        @if (userManager.GetUserId(User) == null)
+                        {
+                            <a href="/Account/Login">
+                                <span id="@post.PostId-upbtn" class="upvote">
+                                    <div id="@post.PostId-uplayer"></div>
+                                </span>
+                            </a>
+                            <div id="@post.PostId-score">@post.Score</div>
 
-                        <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score)" class="downvote">
-                            <div id="@post.PostId-downlayer"></div>
-                        </span>
+                            <a href="/Account/Login">
+                                <span id="@post.PostId-downbtn" class="downvote">
+                                    <div id="@post.PostId-downlayer"></div>
+                                </span>
+                            </a>
+                        }
+                        else
+                        {
+                            <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score)" class="upvote">
+                                <div id="@post.PostId-uplayer"></div>
+                            </span>
+                            <div id="@post.PostId-score">@post.Score</div>
+
+                            <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score)" class="downvote">
+                                <div id="@post.PostId-downlayer"></div>
+                            </span>
+                        }
                     }
                 }
             </div>

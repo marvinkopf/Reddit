@@ -48,13 +48,28 @@
             }
             else
             {
-                <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="upvote">
-                    <div id="comment-@Model.Item1.CommentId-uplayer"></div>
-                </span>
-        
-                <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="downvote">
-                    <div id="comment-@Model.Item1.CommentId-downlayer"></div>
-                </span>
+                @if (userManager.GetUserId(User) == null)
+                {
+                    <a href="/Account/Login">
+                        <span class="upvote">
+                        </span>
+                    </a>
+
+                    <a href="/Account/Login">
+                        <span class="downvote">
+                        </span>
+                    </a>
+                }
+                else
+                {
+                    <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="upvote">
+                        <div id="comment-@Model.Item1.CommentId-uplayer"></div>
+                    </span>
+
+                    <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score)" class="downvote">
+                        <div id="comment-@Model.Item1.CommentId-downlayer"></div>
+                    </span>
+                }
             }
         }
     </div>
@@ -69,7 +84,10 @@
                 <div  class="text" style="margin: 5px 0;">@Model.Item1.Txt</div>
             </div>
             <div class="sub">
-                <a href="javascript:void(0);" onclick="show_comment_reply_input(@Model.Item1.CommentId)">reply</a>
+                @if (userManager.GetUserId(User) != null)
+                {
+                    <a href="javascript:void(0);" onclick="show_comment_reply_input(@Model.Item1.CommentId)">reply</a>
+                }
                 <a href="javascript:void(0);" onclick="hide_child_comments(@Model.Item1.CommentId, this)">hide child comments</a>
             </div>
         </div>
