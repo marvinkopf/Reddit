@@ -1,5 +1,6 @@
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
-@{ ViewData["Title"] = Model.Title; }
+@{ ViewData["Title"] = Model.Title;
+    ViewData["Subtitle"] = Model.Subreddit; }
 @inject UserManager<ApplicationUser> userManager
 @model Post
 
