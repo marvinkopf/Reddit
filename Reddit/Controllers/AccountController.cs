@@ -107,6 +107,26 @@ namespace Reddit.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var subscriptions = new User_X_Subreddit_Subscription[]
+                    {
+                        new User_X_Subreddit_Subscription() { UserId = user.Id,
+                                                                SubredditName = "news",
+                                                                Subscribed = true },
+                        new User_X_Subreddit_Subscription() { UserId = user.Id,
+                                                                SubredditName = "google-news",
+                                                                Subscribed = true },
+                        new User_X_Subreddit_Subscription() { UserId = user.Id,
+                                                                SubredditName = "abc-news-au",
+                                                                Subscribed = true },
+                        new User_X_Subreddit_Subscription() { UserId = user.Id,
+                                                                SubredditName = "bbc-sport",
+                                                                Subscribed = true }
+                    };
+
+                    user.Subscriptions = subscriptions;
+
+                    await _userManager.UpdateAsync(user);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

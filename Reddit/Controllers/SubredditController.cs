@@ -35,5 +35,55 @@ namespace Reddit.Controllers
             
             return Ok();
         }
+
+        [HttpPost("{name}/[action]")]
+        public async Task<IActionResult> Subscribe(string name)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+
+            var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
+            if (oldRelation == null)
+            {
+                var relation = new User_X_Subreddit_Subscription();
+                relation.SubredditName = name;
+                relation.UserId = user.Id;
+                relation.Subscribed = true;
+                _context.User_X_Subreddit_Subscription.Add(relation);
+            }
+            else if (!oldRelation.Subscribed)
+            {
+                oldRelation.Subscribed = true;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("{name}/[action]")]
+        public async Task<IActionResult> Unsubscribe(string name)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User); 
+
+            var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
+            if (oldRelation == null)
+            {
+                var relation = new User_X_Subreddit_Subscription();
+                relation.SubredditName = name;
+                relation.UserId = user.Id;
+                relation.Subscribed = false;
+                _context.User_X_Subreddit_Subscription.Add(relation);
+            }
+            else if (oldRelation.Subscribed)
+            {
+                oldRelation.Subscribed = false;
+                _context.Entry(oldRelation).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

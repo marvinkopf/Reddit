@@ -23,5 +23,8 @@ namespace Reddit.Models
 
         [JsonIgnore]
         public ICollection<Post> CreatedPosts { get; set; }
+
+        [JsonIgnore]
+        public ICollection<User_X_Subreddit_Subscription> Subscriptions { get; set; }
     }
 }

@@ -51,6 +51,13 @@ CREATE TABLE user_x_comment_downvoted (
     PRIMARY KEY(userId, commentId)
 );
 
+CREATE TABLE user_x_subreddit_subscription (
+    userId VARCHAR(55),
+    subredditName VARCHAR(55),
+    subscribed BOOLEAN,
+    PRIMARY KEY(userId, subredditName)
+);
+
 INSERT INTO subreddits VALUES ("news");
 INSERT INTO subreddits VALUES ("google-news");
 INSERT INTO subreddits VALUES ("abc-news-au");

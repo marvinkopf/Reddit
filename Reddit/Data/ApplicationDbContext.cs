@@ -78,6 +78,17 @@ namespace Reddit.Data
                         .HasMany<Post>(u => u.CreatedPosts)
                         .WithOne(p => p.Creator);
 
+                builder.Entity<User_X_Subreddit_Subscription>()
+                        .HasKey(x => new { x.UserId, x.SubredditName });
+
+                builder.Entity<User_X_Subreddit_Subscription>()
+                        .HasOne<ApplicationUser>(x => x.User)
+                        .WithMany(u => u.Subscriptions);
+
+                builder.Entity<User_X_Subreddit_Subscription>()
+                        .HasOne<Subreddit>(x => x.Subreddit)
+                        .WithMany(s => s.SubscribedUsers);
+
                 builder.Entity<Post>()
                         .Property(p => p.SubredditName).HasColumnName("subreddit");
         }
@@ -93,6 +104,8 @@ namespace Reddit.Data
         public DbSet<User_X_Comment_Upvoted> User_X_Comment_Upvoted { get; set; }
 
         public DbSet<User_X_Comment_Downvoted> User_X_Comment_Downvoted { get; set; }
+
+        public DbSet<User_X_Subreddit_Subscription> User_X_Subreddit_Subscription { get; set; }
 
         public DbSet<Subreddit> Subreddits { get; set; }
     }

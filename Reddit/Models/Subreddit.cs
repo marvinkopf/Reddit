@@ -34,5 +34,8 @@ namespace Reddit.Models
                 _name = value;
             }
         }
+
+        [JsonIgnore]
+        public ICollection<User_X_Subreddit_Subscription> SubscribedUsers { get; set; }
     }
 }

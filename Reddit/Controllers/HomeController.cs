@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Reddit.Data;
+using Reddit.Models;
 
 namespace Reddit.Controllers
 {
@@ -13,19 +15,45 @@ namespace Reddit.Controllers
     {
         ApplicationDbContext _context;
 
-        public HomeController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _manager;
+
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> manager)
         {
             _context = context;
+            _manager = manager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Posts
-                                    .Include(p => p.Comments)
-                                    .Include(p => p.Creator)
-                                    .Include(p => p.UpvotedBy)
-                                    .Include(p => p.DownvotedBy)
-                                    .OrderByDescending(p => p.Created)
-                                    .Take(30));
+            var user = await _manager.GetUserAsync(HttpContext.User);
+
+          
+            if (user != null)
+            {
+                user = _manager.Users.Include(u => u.Subscriptions).FirstOrDefault(u => u.Id == user.Id);
+
+                return View(_context.Posts
+                                        .Include(p => p.Comments)
+                                        .Include(p => p.Creator)
+                                        .Include(p => p.UpvotedBy)
+                                        .Include(p => p.DownvotedBy)
+                                        .Where(p => user
+                                            .Subscriptions.Any(
+                                                x => x.SubredditName == p.SubredditName
+                                                        &&
+                                                        x.Subscribed))
+                                        .OrderByDescending(p => p.Created)
+                                        .Take(30));
+            }  
+            else
+            {
+                return View(_context.Posts
+                                        .Include(p => p.Comments)
+                                        .Include(p => p.Creator)
+                                        .Include(p => p.UpvotedBy)
+                                        .Include(p => p.DownvotedBy)
+                                        .OrderByDescending(p => p.Created)
+                                        .Take(30));
+            }
         }
 
         [HttpGet("r/{sub}")]
