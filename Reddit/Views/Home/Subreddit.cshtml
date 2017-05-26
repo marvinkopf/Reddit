@@ -63,5 +63,28 @@
         <li>
             <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
         </li>
+        @if (Model.Item2.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
+            && x.Subscribed))
+        {
+            <li>
+                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.Item2.Name')" class="navbar-brand">
+                    Unsubscribe
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.Item2.Name')" class="navbar-brand">
+                    Subscribe
+                </a>
+            </li>
+        }
     </ul>
+
+    @{
+        var count = Model.Item2.SubscribedUsers.Where(x => x.Subscribed).Count();
+    }
+
+    <div style="text-align:center">@count subscribers</div>
 </div>
