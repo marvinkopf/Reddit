@@ -1,8 +1,9 @@
 @inject UserManager<ApplicationUser> userManager
-@model IEnumerable<Post>
+@model Tuple<IEnumerable<Post>, Subreddit>
 
+<div class="links">
 <ul>
-    @{int i = 1;} @foreach (var post in Model) {
+    @{int i = 1;} @foreach (var post in Model.Item1) {
     <li>
         <div class="count">@i</div>
         <div class="post">
@@ -55,3 +56,12 @@
     i++;
     }
 </ul>
+</div>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
+        </li>
+    </ul>
+</div>

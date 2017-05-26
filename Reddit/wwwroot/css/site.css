@@ -13,12 +13,44 @@ body {
 .body-content {
     padding: 15px;
     grid-area: main;
+    display: grid;
+    grid-template-areas:
+        "links sidebar"
+}
+
+.links {
+    grid-area: links;
+    width: calc(100vw - 245px);
 }
 
 #topbar {
     background: #d3d3d3;
     height: 36px;
     grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    width: 200px;
+}
+
+.sidebar ul {
+    padding: 0;
+}
+
+.sidebar ul li {
+    background-color: #d3d3d3;
+    margin: 20px;
+    padding: 10px;
+    width: 120px;
+    margin-left: 40px;
+    border-radius: 25px;
+    text-align: center;
+    list-style-type: none;
+}
+
+.sidebar ul li a {
+    color: #369;
 }
 
 .header {
@@ -74,7 +106,7 @@ a:hover {
     padding: 0;
 }
 
-.body-content ul li {
+.links ul li {
     margin: 0;
     display: flex;
 }

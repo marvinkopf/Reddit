@@ -62,14 +62,16 @@ namespace Reddit.Controllers
             ViewData["Title"] = sub;
             ViewData["Subtitle"] = sub;
 
-            return View("Subreddit", _context.Posts
+            return View("Subreddit", new Tuple<IEnumerable<Post>, Subreddit>(_context.Posts
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
                                     .Include(p => p.UpvotedBy)
                                     .Include(p => p.DownvotedBy)
                                     .Where(p => p.SubredditName == sub)
                                     .OrderByDescending(p => p.Created)
-                                    .Take(30));
+                                    .Take(30), 
+                                    _context.Subreddits
+                                    .Include(s => s.SubscribedUsers).First(s => s.Name == sub)));
         }
 
         [HttpGetAttribute("[action]")]

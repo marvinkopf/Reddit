@@ -3,6 +3,7 @@
 @inject UserManager<ApplicationUser> userManager
 @model IEnumerable<Post>
 
+<div class="links">
 <ul>
     @{int i = 1;} @foreach (var post in Model) {
     <li>
@@ -80,3 +81,15 @@
     i++;
     }
 </ul>
+</div>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="CreateSub" class="navbar-brand">Create Subreddit</a>
+        </li>
+    </ul>
+</div>

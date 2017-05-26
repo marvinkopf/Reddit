@@ -8,8 +8,6 @@
 {
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <div id="menu">
-                <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
-                <a asp-controller="Home" asp-action="CreateSub" class="navbar-brand">Create Subreddit</a>
                 <a href="/user/@UserManager.GetUserName(User)">@UserManager.GetUserName(User)</a>
                 <a asp-controller="Manage" asp-action="Index" title="Manage">Settings</a>
                 <button type="submit" class="">Log off</button>
