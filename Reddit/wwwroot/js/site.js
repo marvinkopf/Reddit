@@ -145,3 +145,9 @@ function subreddit_unsubscribe(subredditName) {
     $("#subscribe").text("Subscribe");
     $("#subscribe").attr({ "onclick": "subreddit_subscribe('" + subredditName + "')" });
 }
+
+function create_subreddit(form) {
+    post_form(form, '/api/subreddit');
+
+    window.location = "/r/" + $("#name").val();
+}
