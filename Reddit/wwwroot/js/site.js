@@ -54,40 +54,36 @@ function upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/upvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + 1 + " Points");
-    $("#comment-" + commentId + "-downlayer").attr({ "style": "" });
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "un_upvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-uplayer").attr({
-        "style": "background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"
-    });
+    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "" });
+    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "un_upvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "color:orange;" });
 }
 
 function un_upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/unupvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + " Points");
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-uplayer").attr({ "style": "" });
+    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/downvote");
 
     $("#comment-" + commentId + "-score").text(oldScore - 1 + " Points");
-    $("#comment-" + commentId + "-uplayer").attr({ "style": "" });
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "un_downvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-downlayer").attr({
-        "style": "background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"
-    });
+    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "un_downvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "color:blue;" });
+    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function un_downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/undownvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + " Points");
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")" });
-    $("#comment-" + commentId + "-downlayer").attr({ "style": "" });
+    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function show_comment_reply_input(commentId) {
