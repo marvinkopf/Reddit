@@ -38,24 +38,24 @@ namespace ConsoleApplication
 
         public static async Task CreateAccounts()
         {
-            string username = "dfegbubpn";
+            string username = "iiii";
             string password = "fopafwnoa";
-            var tasks = Enumerable.Range(0, 1000).Select(async i => {
-                    var values = new Dictionary<string, string>
-                    {
-                        { "UserName", username + i },
-                        { "Password", password + i },
-                        { "ConfirmPassword", password + i }
-                    };
+            for(int i = 0; i < 9000; i++)
+            {
+                var values = new Dictionary<string, string>
+                {
+                    { "UserName", username + i },
+                    { "Password", password + i },
+                    { "ConfirmPassword", password + i }
+                };
 
-                    var content = new FormUrlEncodedContent(values);
+                var content = new FormUrlEncodedContent(values);
 
-                    var response = await client.PostAsync("http://localhost:5000/Account/Register", content);
+                var response = await client.PostAsync("http://localhost:5000/Account/Register", content);
 
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(i);
-                    });
-            await Task.WhenAll(tasks);
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(i);
+            }
         }
 
         public static async Task<List<News>> GetNews(string source)
@@ -76,7 +76,7 @@ namespace ConsoleApplication
             newsList.AddRange(await GetNews("bbc-sport"));
 
             var subs = new []{ "news", "google-news", "abc-news-au", "bbc-sport"};
-
+            
             foreach (var news in newsList)
             {
                 await Login(ran.Next(9000));
@@ -216,7 +216,7 @@ namespace ConsoleApplication
         {
             var loginv = new Dictionary<string, string>
                     {
-                        { "UserName", "dfegbubpn" + id },
+                        { "UserName", "iiii" + id },
                         { "Password", "fopafwnoa" + id }
                     };
 
