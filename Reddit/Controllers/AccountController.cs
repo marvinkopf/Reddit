@@ -120,6 +120,9 @@ namespace Reddit.Controllers
                                                                 Subscribed = true },
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
                                                                 SubredditName = "bbc-sport",
+                                                                Subscribed = true },
+                        new User_X_Subreddit_Subscription() { UserId = user.Id,
+                                                                SubredditName = "reddit",
                                                                 Subscribed = true }
                     };
 
