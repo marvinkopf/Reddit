@@ -53,8 +53,10 @@
     <div class="content">
         <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
         <div class="sub">
-            <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a> | 
-            @Model.Created.ToString("dd / MM / yyyy") | 
+            created @TimePassedAsString(Model.Created) by
+            <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a>
+        </div>
+        <div class="sub-2">
             <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>
         </div>
     </div>
@@ -108,3 +110,25 @@
 
     <div style="text-align:center">@count subscribers</div>
 </div>
+
+@functions {
+    string TimePassedAsString(DateTime time)
+    {
+        var difference = DateTime.Now.Subtract(time);
+
+        if (difference.Days >= 30)
+        {
+            var countMonths = difference.Days / 30;
+            return difference.Days / 30 + " months ago";
+        }
+        else if (difference.Days > 0)
+            return difference.Days + " days ago";
+        else if (difference.Hours > 0)
+            return difference.Hours + " hours ago";
+        else if (difference.Minutes > 0)
+            return difference.Minutes + " minutes ago";
+
+        return "<1min ago";
+    }
+}
+

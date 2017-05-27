@@ -61,8 +61,12 @@
             <div class="content">
                 <a class="post-title" href="//@post.Link">@post.Title</a><br>
                 <div class="sub">
-                    <a class="creator" href=/user/@post.Creator.UserName>@post.Creator.UserName</a> | @post.Created.ToString("dd / MM / yyyy") |
-                    <a href='/post/@post.PostId'>@post.Comments.Count() comments</a> in <a class="creator" href='/r/@post.SubredditName'>r/@post.SubredditName</a>
+                    submitted @TimePassedAsString(@post.Created) ago by 
+                    <a class="creator" href=/user/@post.Creator.UserName>@post.Creator.UserName</a>
+                     in <a class="creator" href='/r/@post.SubredditName'>r/@post.SubredditName</a>
+                </div>
+                <div class="sub-2">
+                    <a href='/post/@post.PostId'>@post.Comments.Count() comments</a>
                 </div>
             </div>
         </div>
@@ -83,3 +87,24 @@
         </li>
     </ul>
 </div>
+
+@functions {
+    string TimePassedAsString(DateTime time)
+    {
+        var difference = DateTime.Now.Subtract(time);
+
+        if (difference.Days >= 30)
+        {
+            var countMonths = difference.Days / 30;
+            return difference.Days / 30 + " months ago";
+        }
+        else if (difference.Days > 0)
+            return difference.Days + " days ago";
+        else if (difference.Hours > 0)
+            return difference.Hours + " hours ago";
+        else if (difference.Minutes > 0)
+            return difference.Minutes + " minutes ago";
+
+        return "<1min ago";
+    }
+}

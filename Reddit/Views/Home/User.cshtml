@@ -139,10 +139,12 @@
                     <div class="content">
                         <a class=\"post-title\" href=//@item.Link>@item.Title</a><br>
                         <div class="sub">
-                            <a class="creator" href=/user/@item.Creator.UserName>@item.Creator.UserName</a> | 
-                            @item.Created.ToString("dd / MM / yyyy") | 
-                            <a href='/post/@item.PostId'>@item.Comments.Count() comments</a>
+                            submitted @TimePassedAsString(item.Created) by
+                            <a class="creator" href=/user/@item.Creator.UserName>@item.Creator.UserName</a>
                             in <a class="creator" href='/r/@item.Subreddit'>r/@item.SubredditName</a>
+                        </div>
+                        <div class="sub-2">
+                            <a href='/post/@item.PostId'>@item.Comments.Count() comments</a>
                         </div>
                     </div>
                 </div>

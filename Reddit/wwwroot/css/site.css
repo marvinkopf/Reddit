@@ -143,7 +143,7 @@ a:hover {
     color: slategray;
 }
 
-.sub a {
+.sub a, .sub-2 a {
     margin-right: 5px;
 }
 
@@ -232,6 +232,14 @@ textarea.comment-input {
     height: 100px;
 }
 
+
+.post .content .sub-2,
+.post .content .sub-2 a {
+    color: slategray;
+    font-weight: bold;
+    font-size: small;
+}
+
 .post .content .sub,
 .post .content .sub a,
 .comment .sub * {
@@ -239,3 +247,6 @@ textarea.comment-input {
     font-size: small;
 }
 
+a:hover {
+    text-decoration: underline !important;
+}
