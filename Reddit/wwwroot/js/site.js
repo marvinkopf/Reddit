@@ -7,7 +7,7 @@ function post_form(form, target) {
         fields[$(this).attr("name")] = $(this).val();
     });
 
-    $.post(target, fields);
+    return $.post(target, fields);
 }
 
 function upvote_post(postId, oldScore) {
@@ -150,4 +150,10 @@ function create_subreddit(form) {
     post_form(form, '/api/subreddit');
 
     window.location = "/r/" + $("#name").val();
+}
+
+function submit_link(form) {
+    post_form(form, '/api/post').done(function(msg) {
+        window.location = "/post/" + msg.postId;
+    });
 }
