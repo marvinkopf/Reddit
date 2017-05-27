@@ -8,42 +8,47 @@
 <div class="post">
     <div class="upvote-btn">
         @{
-            if (Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
-            {
-                <span id="@Model.PostId-upbtn" onclick="un_upvote_post(@Model.PostId, @Model.Score - 1)" class="upvote">
-                    <div id="@Model.PostId-uplayer"
-                        style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
-                </span>
-                <div id="@Model.PostId-score" style="color:orange">@Model.Score</div>
-        
-                <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score - 1)" class="downvote">
-                    <div id="@Model.PostId-downlayer"></div>
-                </span>
-            }
-            else if (Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted)
-            {
-                <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score + 1)" class="upvote">
-                    <div id="@Model.PostId-uplayer"></div>
-                </span>
-                <div id="@Model.PostId-score" style="color:blue">@Model.Score</div>
-        
-                <span id="@Model.PostId-downbtn" onclick="un_downvote_post(@Model.PostId, @Model.Score + 1)" class="downvote">
-                    <div id="@Model.PostId-downlayer"
-                     style="background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"></div>
-                </span>
-            }
-            else
-            {
-                <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score)" class="upvote">
-                    <div id="@Model.PostId-uplayer"></div>
-                </span>
-                <div id="@Model.PostId-score">@Model.Score</div>
-        
-                <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score)" class="downvote">
-                    <div id="@Model.PostId-downlayer"></div>
-                </span>
-            }
-        }
+                    if (Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted) {
+                        <span style="color:orange;" id="@Model.PostId-upbtn" onclick="un_upvote_post(@Model.PostId, @Model.Score - 1)" class="upvote">
+                        </span>
+                        <div style="color:orange;" class="vote-score" id="@Model.PostId-score" style="color:orange">@Model.Score</div>
+
+                        <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score - 1)" class="downvote">
+                        </span>
+                    }
+                    else if (Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted) {
+                        <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score + 1)" class="upvote">
+                        </span>
+                        <div style="color:blue;" class="vote-score" id="@Model.PostId-score" style="color:blue">@Model.Score</div>
+
+                        <span style="color:blue;" id="@Model.PostId-downbtn" onclick="un_downvote_post(@Model.PostId, @Model.Score + 1)" class="downvote">
+                        </span>
+                    }
+                    else {
+                        @if (userManager.GetUserId(User) == null)
+                        {
+                            <a href="/Account/Login">
+                                <span id="@Model.PostId-upbtn" class="upvote">
+                                </span>
+                            </a>
+                            <div class="vote-score" id="@Model.PostId-score">@Model.Score</div>
+
+                            <a href="/Account/Login">
+                                <span id="@Model.PostId-downbtn" class="downvote">
+                                </span>
+                            </a>
+                        }
+                        else
+                        {
+                            <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score)" class="upvote">
+                            </span>
+                            <div class="vote-score" id="@Model.PostId-score">@Model.Score</div>
+
+                            <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score)" class="downvote">
+                            </span>
+                        }
+                    }
+                }
     </div>
     <div class="content">
         <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>

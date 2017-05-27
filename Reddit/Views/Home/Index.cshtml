@@ -12,25 +12,19 @@
             <div class="upvote-btn">
                 @{
                     if (post.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && post.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted) {
-                        <span id="@post.PostId-upbtn" onclick="un_upvote_post(@post.PostId, @post.Score - 1)" class="upvote">
-                            <div id="@post.PostId-uplayer"
-                                style="background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                        <span style="color:orange;" id="@post.PostId-upbtn" onclick="un_upvote_post(@post.PostId, @post.Score - 1)" class="upvote">
                         </span>
-                        <div id="@post.PostId-score" style="color:orange">@post.Score</div>
+                        <div style="color:orange;" class="vote-score" id="@post.PostId-score" style="color:orange">@post.Score</div>
 
                         <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score - 1)" class="downvote">
-                        <div id="@post.PostId-downlayer"></div>
                         </span>
                     }
                     else if (post.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && post.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted) {
                         <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score + 1)" class="upvote">
-                            <div id="@post.PostId-uplayer"></div>
                         </span>
-                        <div id="@post.PostId-score" style="color:blue">@post.Score</div>
+                        <div style="color:blue;" class="vote-score" id="@post.PostId-score" style="color:blue">@post.Score</div>
 
-                        <span id="@post.PostId-downbtn" onclick="un_downvote_post(@post.PostId, @post.Score + 1)" class="downvote">
-                            <div id="@post.PostId-downlayer"
-                                style="background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"></div>
+                        <span style="color:blue;" id="@post.PostId-downbtn" onclick="un_downvote_post(@post.PostId, @post.Score + 1)" class="downvote">
                         </span>
                     }
                     else {
@@ -38,26 +32,22 @@
                         {
                             <a href="/Account/Login">
                                 <span id="@post.PostId-upbtn" class="upvote">
-                                    <div id="@post.PostId-uplayer"></div>
                                 </span>
                             </a>
-                            <div id="@post.PostId-score">@post.Score</div>
+                            <div class="vote-score" id="@post.PostId-score">@post.Score</div>
 
                             <a href="/Account/Login">
                                 <span id="@post.PostId-downbtn" class="downvote">
-                                    <div id="@post.PostId-downlayer"></div>
                                 </span>
                             </a>
                         }
                         else
                         {
                             <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score)" class="upvote">
-                                <div id="@post.PostId-uplayer"></div>
                             </span>
-                            <div id="@post.PostId-score">@post.Score</div>
+                            <div class="vote-score" id="@post.PostId-score">@post.Score</div>
 
                             <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score)" class="downvote">
-                                <div id="@post.PostId-downlayer"></div>
                             </span>
                         }
                     }

@@ -15,12 +15,10 @@ function upvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore + 1);
     $("#" + postId + "-score").attr({ "style": "color:orange;" });
-    $("#" + postId + "-downlayer").attr({ "style": "" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "un_upvote_post(" + postId + "," + oldScore + ")" });
-    $("#" + postId + "-uplayer").attr({
-        "style": "background-color: rgba(255, 165, 0, 0.7);width:85%;height:10px;margin-top:5px"
-    });
+    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")",
+        "style" : "" });
+    $('#' + postId + "-upbtn").attr({ "onclick": "un_upvote_post(" + postId + "," + oldScore + ")",
+         "style" : "color:orange;" } );
 }
 
 function un_upvote_post(postId, oldScore) {
@@ -28,8 +26,8 @@ function un_upvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style": "" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")" });
-    $("#" + postId + "-uplayer").attr({ "style": "" });
+    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function downvote_post(postId, oldScore) {
@@ -37,12 +35,10 @@ function downvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore - 1);
     $("#" + postId + "-score").attr({ "style": "color:blue;" });
-    $("#" + postId + "-uplayer").attr({ "style": "" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "un_downvote_post(" + postId + "," + oldScore + ")" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")" });
-    $("#" + postId + "-downlayer").attr({
-        "style": "background-color: rgba(0, 0, 255, 0.7);width:85%;height:10px;margin-top:5px"
-    });
+    $('#' + postId + "-downbtn").attr({ "onclick": "un_downvote_post(" + postId + "," + oldScore + ")",
+        "style" : "color:blue" });
+    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function un_downvote_post(postId, oldScore) {
@@ -50,8 +46,8 @@ function un_downvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style": "" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")" });
-    $("#" + postId + "-downlayer").attr({ "style": "" });
+    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")",
+        "style" : "" });
 }
 
 function upvote_comment(commentId, oldScore) {

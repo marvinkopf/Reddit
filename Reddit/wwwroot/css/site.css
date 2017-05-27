@@ -100,6 +100,14 @@ a:hover {
     padding: 0 20px;
 }
 
+.upvote::after {
+    content: "▲";
+}
+
+.downvote::after {
+    content: "▼";
+}
+
 .body-content ul {
     list-style-type: none;
     margin: 0;
@@ -175,9 +183,11 @@ a:hover {
     width: 25px;
     height: 15px;
     cursor: pointer;
-    background: url('http://i.stack.imgur.com/iqN2k.png');
-    background-position: -10px -25px;
 } 
+
+.vote-score {
+    margin-left: 5px;
+}
 
 .downvote {
     display: inline-block;
@@ -185,14 +195,6 @@ a:hover {
     width: 25px;
     height: 15px;
     cursor: pointer;
-    background: url('http://i.stack.imgur.com/iqN2k.png');
-    background-position: -10px -25px;
-    -moz-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
-    transform: scaleY(-1);
-    filter: FlipV;
-    -ms-filter: "FlipV";
 }
 
 .comment {
