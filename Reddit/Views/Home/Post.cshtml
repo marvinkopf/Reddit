@@ -4,6 +4,7 @@
 @inject UserManager<ApplicationUser> userManager
 @model Post
 
+<div class="links">
 <div class="post">
     <div class="upvote-btn">
         @{
@@ -70,3 +71,35 @@
         </li>
         }
     </ul>
+</div>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
+        </li>
+        @if (Model.Subreddit.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
+            && x.Subscribed))
+        {
+            <li>
+                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.SubredditName')" class="navbar-brand">
+                    Unsubscribe
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.SubredditName')" class="navbar-brand">
+                    Subscribe
+                </a>
+            </li>
+        }
+    </ul>
+
+    @{
+        var count = Model.Subreddit.SubscribedUsers.Where(x => x.Subscribed).Count();
+    }
+
+    <div style="text-align:center">@count subscribers</div>
+</div>

@@ -1,6 +1,7 @@
 @inject UserManager<ApplicationUser> userManager
 @model ApplicationUser
 
+<div>
 <h3>@Model.UserName</h3>
 @Model.CreatedPosts.Sum(p => p.Score) Link Karma - @Model.CreatedComments.Sum(c => c.Score) Comment Karma
 
@@ -171,3 +172,4 @@
         return "<1min ago";
     }
 }
+</div>
