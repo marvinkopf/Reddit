@@ -65,8 +65,8 @@ namespace Reddit.Controllers
 
             var subreddit = _context.Subreddits
                                     .Include(s => s.SubscribedUsers).FirstOrDefault(s => s.Name == sub);
-                                
-            if(subreddit == null)
+
+            if (subreddit == null)
                 return NotFound();
 
             return View("Subreddit", new Tuple<IEnumerable<Post>, Subreddit>(_context.Posts
@@ -114,14 +114,18 @@ namespace Reddit.Controllers
         public IActionResult UserPage(string userName)
         {
             ViewData["Subtitle"] = userName;
-            return View("User",
-                _context.Users
+            var user = _context.Users
                             .Include(u => u.CreatedComments).ThenInclude(c => c.UpvotedBy)
                             .Include(u => u.CreatedComments).ThenInclude(c => c.DownvotedBy)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.UpvotedBy)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.DownvotedBy)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.Comments)
-                            .First(u => u.UserName.ToUpper() == userName.ToUpper()));
+                            .FirstOrDefault(u => u.UserName.ToUpper() == userName.ToUpper());
+
+            if (user == null)
+                return NotFound();
+
+            return View("User", user);
         }
 
         public IActionResult Error()
