@@ -58,10 +58,19 @@
             posts.RemoveAt(0);
         }
 
-    <li style="display: block"><div class="comment" id="comment-@item.CommentId">
+<li style="display: block">
+<div style="margin: 10px 0 -10px 0;font-size:small;">
+<a style="font-size:small;" class="post-title" href='//@item.Post.Link'>@item.Post.Title</a> by
+<a style="color:#369;font-size:small;" class="creator" href='/user/@item.Post.Creator.UserName'>@item.Post.Creator.UserName</a>
+in <a style="color:#369;font-size:small;" class="creator" href='/r/@item.Post.SubredditName'>r/@item.Post.SubredditName</a>
+</div>
 
+<div class="comment" id="comment-@item.CommentId">
 
 @{var timePassed = TimePassedAsString(@item.Created);}
+
+
+
 <div class="upvote-btn">
         <span id="comment-@item.CommentId-upbtn" onclick="upvote_comment(@item.CommentId, @item.Score)" class="upvote">
             </span>
