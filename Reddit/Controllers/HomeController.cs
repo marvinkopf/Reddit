@@ -26,7 +26,7 @@ namespace Reddit.Controllers
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
 
-          
+
             if (user != null)
             {
                 user = _manager.Users.Include(u => u.Subscriptions).FirstOrDefault(u => u.Id == user.Id);
@@ -43,7 +43,7 @@ namespace Reddit.Controllers
                                                         x.Subscribed))
                                         .OrderByDescending(p => p.Created)
                                         .Take(30), _context.Subreddits.Include(s => s.SubscribedUsers)));
-            }  
+            }
             else
             {
                 return View(new Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>(_context.Posts
@@ -52,7 +52,8 @@ namespace Reddit.Controllers
                                         .Include(p => p.UpvotedBy)
                                         .Include(p => p.DownvotedBy)
                                         .OrderByDescending(p => p.Created)
-                                        .Take(30), _context.Subreddits.Include(s => s.SubscribedUsers)));
+                                        .Take(30),
+                                        _context.Subreddits.Include(s => s.SubscribedUsers)));
             }
         }
 
@@ -62,6 +63,12 @@ namespace Reddit.Controllers
             ViewData["Title"] = sub;
             ViewData["Subtitle"] = sub;
 
+            var subreddit = _context.Subreddits
+                                    .Include(s => s.SubscribedUsers).FirstOrDefault(s => s.Name == sub);
+                                
+            if(subreddit == null)
+                return NotFound();
+
             return View("Subreddit", new Tuple<IEnumerable<Post>, Subreddit>(_context.Posts
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
@@ -69,9 +76,8 @@ namespace Reddit.Controllers
                                     .Include(p => p.DownvotedBy)
                                     .Where(p => p.SubredditName == sub)
                                     .OrderByDescending(p => p.Created)
-                                    .Take(30), 
-                                    _context.Subreddits
-                                    .Include(s => s.SubscribedUsers).First(s => s.Name == sub)));
+                                    .Take(30),
+                                    subreddit));
         }
 
         [HttpGetAttribute("[action]")]
