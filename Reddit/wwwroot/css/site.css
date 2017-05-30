@@ -250,3 +250,7 @@ textarea.comment-input {
 a:hover {
     text-decoration: underline !important;
 }
+
+.header a:hover {
+    text-decoration: none !important;
+}
