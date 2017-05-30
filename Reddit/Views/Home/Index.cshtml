@@ -1,11 +1,11 @@
 @{ ViewData["Title"] = "Home Page"; }
 
 @inject UserManager<ApplicationUser> userManager
-@model IEnumerable<Post>
+@model Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>
 
 <div class="links">
 <ul>
-    @{int i = 1;} @foreach (var post in Model) {
+    @{int i = 1;} @foreach (var post in Model.Item1) {
     <li>
         <div class="count">@i</div>
         <div class="post">
@@ -78,13 +78,24 @@
 </div>
 
 <div class="sidebar">
-    <ul>
+    <ul class="sidebar-links">
         <li>
             <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
         </li>
         <li>
             <a asp-controller="Home" asp-action="CreateSub" class="navbar-brand">Create Subreddit</a>
         </li>
+    </ul>
+
+    <div style="text-align:center;">Popular subreddits</div>
+    @{ var topsubs = Model.Item2.OrderByDescending(s => s.SubscribedUsers.Count()).Take(10); }
+    <ul>
+        @foreach (var sub in topsubs)
+        {
+            <li style="text-align:center;margin-top: 10px;">
+                <a href="/r/@sub.Name">@sub.Name</a>
+            </li>
+        }
     </ul>
 </div>
 

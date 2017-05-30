@@ -31,7 +31,7 @@ namespace Reddit.Controllers
             {
                 user = _manager.Users.Include(u => u.Subscriptions).FirstOrDefault(u => u.Id == user.Id);
 
-                return View(_context.Posts
+                return View(new Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>(_context.Posts
                                         .Include(p => p.Comments)
                                         .Include(p => p.Creator)
                                         .Include(p => p.UpvotedBy)
@@ -42,17 +42,17 @@ namespace Reddit.Controllers
                                                         &&
                                                         x.Subscribed))
                                         .OrderByDescending(p => p.Created)
-                                        .Take(30));
+                                        .Take(30), _context.Subreddits.Include(s => s.SubscribedUsers)));
             }  
             else
             {
-                return View(_context.Posts
+                return View(new Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>(_context.Posts
                                         .Include(p => p.Comments)
                                         .Include(p => p.Creator)
                                         .Include(p => p.UpvotedBy)
                                         .Include(p => p.DownvotedBy)
                                         .OrderByDescending(p => p.Created)
-                                        .Take(30));
+                                        .Take(30), _context.Subreddits.Include(s => s.SubscribedUsers)));
             }
         }
 
