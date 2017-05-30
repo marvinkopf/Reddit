@@ -95,7 +95,7 @@ namespace Reddit.Controllers
                             .Include(p => p.Subreddit).ThenInclude(s => s.SubscribedUsers)
                             .Include(p => p.UpvotedBy)
                             .Include(p => p.DownvotedBy)
-                            .First(p => p.PostId == id);
+                            .FirstOrDefault(p => p.PostId == id);
 
             if (post == null)
                 return NotFound();
