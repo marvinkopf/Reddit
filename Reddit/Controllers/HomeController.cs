@@ -22,10 +22,9 @@ namespace Reddit.Controllers
             _context = context;
             _manager = manager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? after)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
-
 
             if (user != null)
             {
@@ -36,6 +35,12 @@ namespace Reddit.Controllers
                                         .Include(p => p.Creator)
                                         .Include(p => p.UpvotedBy)
                                         .Include(p => p.DownvotedBy)
+                                        .Where(p => after == null || p.PostId <
+                                            _context
+                                            .Posts
+                                            .Where(pp => pp.PostId == after)
+                                            .Select(pp => pp.PostId)
+                                            .SingleOrDefault())
                                         .Where(p => user
                                             .Subscriptions.Any(
                                                 x => x.SubredditName == p.SubredditName

@@ -75,6 +75,19 @@
     i++;
     }
 </ul>
+
+@if (@Model.Item1.Any())
+{
+    <div>
+        view more:
+        <a href="/?after=@Model.Item1.Last().PostId">next</a>
+    </div>
+}
+else
+{
+    <div>nothing here</div>
+}
+
 </div>
 
 <div class="sidebar">
