@@ -102,7 +102,7 @@ namespace ConsoleApplication
             
                 await CommentPost(int.Parse(location.Split('/')[5]));
                 
-                await UpvoteLink(int.Parse(location.Split('/')[5]), ran.Next(200));
+                await UpvoteLink(int.Parse(location.Split('/')[5]), ran.Next(100));
             }
 
             // Post hard coded content
@@ -124,7 +124,7 @@ namespace ConsoleApplication
 
         public static async Task CommentPost(int id)
         {
-            foreach(int i in Enumerable.Range(0, 9000).OrderByDescending(i => ran.Next()).Take(20))
+            foreach(int i in Enumerable.Range(0, 9000).OrderByDescending(i => ran.Next()).Take(10))
             {
                 await Login(i);
 
@@ -143,7 +143,7 @@ namespace ConsoleApplication
                 if (response.Headers.TryGetValues("Location", out values1))
                     location = values1.First();
 
-                // await UpvoteComment(location.Split('/')[5]);
+                await UpvoteComment(location.Split('/')[5]);
             
                 await CommentComment(location.Split('/')[5], id.ToString());
             }
@@ -171,7 +171,7 @@ namespace ConsoleApplication
                 if (response.Headers.TryGetValues("Location", out values1))
                     location = values1.First();
 
-                //await UpvoteComment(location.Split('/')[5]);
+                await UpvoteComment(location.Split('/')[5]);
 
                 await CommentComment(location.Split('/')[5], postId, depth + 1);
             }
