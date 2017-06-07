@@ -83,13 +83,13 @@
 <div class="sidebar">
     <ul class="sidebar-links">
         <li>
-            <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
+            <a asp-controller="Home" asp-action="Submit" class="">Submit Link</a>
         </li>
         @if (Model.Subreddit.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
             && x.Subscribed))
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.SubredditName')" class="navbar-brand">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.SubredditName')" class="">
                     Unsubscribe
                 </a>
             </li>
@@ -97,7 +97,7 @@
         else
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.SubredditName')" class="navbar-brand">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.SubredditName')" class="">
                     Subscribe
                 </a>
             </li>

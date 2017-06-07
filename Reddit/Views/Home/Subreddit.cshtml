@@ -69,12 +69,12 @@
 <div class="sidebar">
     <ul class="sidebar-links">
         <li>
-            <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
+            <a asp-controller="Home" asp-action="Submit" class="">Submit Link</a>
         </li>
         @if (userManager.GetUserId(User) == null)
         {
             <li>
-                <a id="subscribe" href="/Account/Login?ReturnUrl=/r/@Model.Item2.Name" class="navbar-brand">
+                <a id="subscribe" href="/Account/Login?ReturnUrl=/r/@Model.Item2.Name" class="">
                     Subscribe
                 </a>
             </li>
@@ -83,7 +83,7 @@
             && x.Subscribed))
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.Item2.Name')" class="navbar-brand">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.Item2.Name')" class="">
                     Unsubscribe
                 </a>
             </li>
@@ -91,7 +91,7 @@
         else
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.Item2.Name')" class="navbar-brand">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.Item2.Name')" class="">
                     Subscribe
                 </a>
             </li>

@@ -20,33 +20,48 @@ body {
 
 .links {
     grid-area: links;
-    width: calc(100vw - 245px);
+    width: calc(100vw - 320px);
+    background-color: 	#F5F5F5;
+    padding: 15px;
+    margin-left: 15px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
 }
 
 #topbar {
     background: #d3d3d3;
     height: 36px;
     grid-area: header;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .sidebar {
     grid-area: sidebar;
-    width: 200px;
+    background-color: 	#F5F5F5;
+    margin-left: 30px;
+    width: 180px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+    min-height: 100px;
+    display: table;
+    padding-top: 15px;
+    padding-bottom: 20px;
 }
 
 .sidebar-links {
     padding: 0;
+    
 }
 
 .sidebar-links li {
     background-color: #d3d3d3;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
     padding: 10px;
     width: 120px;
-    margin-left: 40px;
     border-radius: 25px;
     text-align: center;
     list-style-type: none;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .sidebar-links li a {
@@ -205,10 +220,10 @@ a:hover {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 10px;
-    border: solid 1px #ddf;
     display: grid;
     grid-template-areas: "upvote content";
     grid-template-columns: 30px auto;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .comment .author {
@@ -257,4 +272,8 @@ a:hover {
 
 .header a:hover {
     text-decoration: none !important;
+}
+
+.navbar-brand {
+    margin-left: 50px;
 }
