@@ -39,7 +39,7 @@ namespace Reddit.Controllers
         public IActionResult Put(int id, [FromBody]Comment comment)
         {
             if (id != comment.CommentId)
-                throw new Exception();
+                return BadRequest();
 
             _context.Entry(comment).State = EntityState.Modified;
             _context.SaveChanges();
