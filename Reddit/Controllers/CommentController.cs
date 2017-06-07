@@ -30,7 +30,7 @@ namespace Reddit.Controllers
         public IActionResult Get(int id) 
         {
             var comment = _context.Comments.Include(c => c.Creator)
-                .FirstOrDefault(c => c.CommentId == id && c.Creator.Id == _manager.GetUserId(HttpContext.User));
+                .FirstOrDefault(c => c.CommentId == id);
         
             return comment != null ? (IActionResult)Ok(comment) : NotFound();
         }
