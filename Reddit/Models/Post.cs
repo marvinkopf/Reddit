@@ -68,7 +68,13 @@ namespace Reddit.Models
             set
             {
                 if (String.IsNullOrWhiteSpace(value)) throw new Exception();
-                _link = value;
+
+                if (value.Contains("http://"))
+                    _link = value.Remove(0, 7);
+                else if (value.Contains("https://"))
+                    _link = value.Remove(0, 8);
+                else
+                    _link = value;
             }
         }
 
