@@ -61,6 +61,12 @@ namespace Reddit.Controllers
                 return this.Content("No postid given");
             }
 
+            if (_context.Comments.Find(new[]{parentId.Value}).PostId != postId.Value)
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("Can't attach comment to parent comment that's on another post");
+            }
+
             var comment = new Comment(
                             txt,
                             DateTime.Now,
