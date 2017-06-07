@@ -38,6 +38,8 @@ namespace Reddit.Controllers
         }
 
         [HttpPost("{name}/[action]")]
+        [Authorize]
+
         public async Task<IActionResult> Subscribe(string name)
         {
             var user = await _manager.GetUserAsync(HttpContext.User); 
@@ -63,6 +65,7 @@ namespace Reddit.Controllers
         }
 
         [HttpPost("{name}/[action]")]
+        [Authorize]
         public async Task<IActionResult> Unsubscribe(string name)
         {
             var user = await _manager.GetUserAsync(HttpContext.User); 
