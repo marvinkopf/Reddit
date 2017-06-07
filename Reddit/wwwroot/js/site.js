@@ -15,10 +15,14 @@ function upvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore + 1);
     $("#" + postId + "-score").attr({ "style": "color:orange;" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")",
-        "style" : "" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "un_upvote_post(" + postId + "," + oldScore + ")",
-         "style" : "color:orange;" } );
+    $('#' + postId + "-downbtn").attr({
+        "onclick": "downvote_post(" + postId + "," + oldScore + ")",
+        "style": ""
+    });
+    $('#' + postId + "-upbtn").attr({
+        "onclick": "un_upvote_post(" + postId + "," + oldScore + ")",
+        "style": "color:orange;"
+    });
 }
 
 function un_upvote_post(postId, oldScore) {
@@ -26,8 +30,10 @@ function un_upvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style": "" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")",
-        "style" : "" });
+    $('#' + postId + "-upbtn").attr({
+        "onclick": "upvote_post(" + postId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function downvote_post(postId, oldScore) {
@@ -35,10 +41,14 @@ function downvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore - 1);
     $("#" + postId + "-score").attr({ "style": "color:blue;" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "un_downvote_post(" + postId + "," + oldScore + ")",
-        "style" : "color:blue" });
-    $('#' + postId + "-upbtn").attr({ "onclick": "upvote_post(" + postId + "," + oldScore + ")",
-        "style" : "" });
+    $('#' + postId + "-downbtn").attr({
+        "onclick": "un_downvote_post(" + postId + "," + oldScore + ")",
+        "style": "color:blue"
+    });
+    $('#' + postId + "-upbtn").attr({
+        "onclick": "upvote_post(" + postId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function un_downvote_post(postId, oldScore) {
@@ -46,44 +56,58 @@ function un_downvote_post(postId, oldScore) {
 
     $("#" + postId + "-score").text(oldScore);
     $("#" + postId + "-score").attr({ "style": "" });
-    $('#' + postId + "-downbtn").attr({ "onclick": "downvote_post(" + postId + "," + oldScore + ")",
-        "style" : "" });
+    $('#' + postId + "-downbtn").attr({
+        "onclick": "downvote_post(" + postId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/upvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + 1 + " Points");
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "" });
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "un_upvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "color:orange;" });
+    $("#comment-" + commentId + "-downbtn").attr({
+        "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
+        "style": ""
+    });
+    $("#comment-" + commentId + "-upbtn").attr({
+        "onclick": "un_upvote_comment(" + commentId + "," + oldScore + ")",
+        "style": "color:orange;"
+    });
 }
 
 function un_upvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/unupvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + " Points");
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "" });
+    $("#comment-" + commentId + "-upbtn").attr({
+        "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/downvote");
 
     $("#comment-" + commentId + "-score").text(oldScore - 1 + " Points");
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "un_downvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "color:blue;" });
-    $("#comment-" + commentId + "-upbtn").attr({ "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "" });
+    $("#comment-" + commentId + "-downbtn").attr({
+        "onclick": "un_downvote_comment(" + commentId + "," + oldScore + ")",
+        "style": "color:blue;"
+    });
+    $("#comment-" + commentId + "-upbtn").attr({
+        "onclick": "upvote_comment(" + commentId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function un_downvote_comment(commentId, oldScore) {
     $.post("/api/comment/" + commentId + "/undownvote");
 
     $("#comment-" + commentId + "-score").text(oldScore + " Points");
-    $("#comment-" + commentId + "-downbtn").attr({ "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
-        "style" : "" });
+    $("#comment-" + commentId + "-downbtn").attr({
+        "onclick": "downvote_comment(" + commentId + "," + oldScore + ")",
+        "style": ""
+    });
 }
 
 function show_comment_reply_input(commentId) {
@@ -132,7 +156,7 @@ function hide_child_comments(commentId, element) {
 }
 
 function subreddit_subscribe(subredditName) {
-    $.post("/api/subreddit/"+subredditName+"/subscribe");
+    $.post("/api/subreddit/" + subredditName + "/subscribe");
 
     $("#subscribe").text("Unsubscribe");
     $("#subscribe").attr({ "onclick": "subreddit_unsubscribe('" + subredditName + "')" });
@@ -140,7 +164,7 @@ function subreddit_subscribe(subredditName) {
 }
 
 function subreddit_unsubscribe(subredditName) {
-    $.post("/api/subreddit/"+subredditName+"/unsubscribe");
+    $.post("/api/subreddit/" + subredditName + "/unsubscribe");
 
     $("#subscribe").text("Subscribe");
     $("#subscribe").attr({ "onclick": "subreddit_subscribe('" + subredditName + "')" });
@@ -148,17 +172,21 @@ function subreddit_unsubscribe(subredditName) {
 
 function create_subreddit(form) {
     post_form(form, '/api/subreddit')
-        .done(function(msg) {
+        .done(function (msg) {
             window.location = "/r/" + $("#name").val();
         })
-        .fail(function( xhr, ajaxOptions, thrownError ) {
-            $("#errorMessage").attr({"style" : "color:red"});
+        .fail(function (xhr, ajaxOptions, thrownError) {
+            $("#errorMessage").attr({ "style": "color:red" });
             $("#errorMessage").text(xhr.responseText);
         });
 }
 
 function submit_link(form) {
-    post_form(form, '/api/post').done(function(msg) {
+    post_form(form, '/api/post').done(function (msg) {
         window.location = "/post/" + msg.postId;
+    })
+    .fail(function (xhr, ajaxOptions, thrownError) {
+        $("#errorMessage").attr({ "style": "color:red" });
+        $("#errorMessage").text(xhr.responseText);
     });
 }
