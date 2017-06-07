@@ -19,13 +19,13 @@ namespace Reddit.Controllers
         private readonly ApplicationDbContext _context;
 
         private readonly UserManager<ApplicationUser> _manager;
-        
+
         public PostController(ApplicationDbContext context, UserManager<ApplicationUser> manager)
         {
             _context = context;
             _manager = manager;
         }
-        
+
         [HttpGet("{id:int}", Name = "GetPost")]
         public IActionResult Get(int id)
         {
@@ -39,7 +39,7 @@ namespace Reddit.Controllers
             if (id != post.PostId)
                 throw new Exception();
 
-             _context.Entry(post).State = EntityState.Modified;
+            _context.Entry(post).State = EntityState.Modified;
             _context.SaveChanges();
             return Ok();
         }
@@ -76,7 +76,7 @@ namespace Reddit.Controllers
                             subreddit,
                             DateTime.Now,
                             (await _manager.GetUserAsync(HttpContext.User)).Id)
-                            { UrlToImage = urlToImage };
+            { UrlToImage = urlToImage };
 
             _context.Posts.Add(post);
             _context.SaveChanges();
@@ -98,7 +98,7 @@ namespace Reddit.Controllers
         {
             await UnDownvote(id);
 
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var user = await _manager.GetUserAsync(HttpContext.User);
 
             var oldRelation = _context.User_X_Post_Upvoted.Find(user.Id, id);
             if (oldRelation == null)
@@ -131,7 +131,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnUpvote(int id)
         {
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var user = await _manager.GetUserAsync(HttpContext.User);
             var oldRelation = _context.User_X_Post_Upvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Upvoted)
             {
@@ -153,7 +153,7 @@ namespace Reddit.Controllers
         {
             await UnUpvote(id);
 
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var user = await _manager.GetUserAsync(HttpContext.User);
 
             var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
             if (oldRelation == null)
@@ -186,7 +186,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnDownvote(int id)
         {
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            var user = await _manager.GetUserAsync(HttpContext.User);
             var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Downvoted)
             {
