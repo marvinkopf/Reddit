@@ -27,8 +27,11 @@ namespace Reddit.Controllers
         }
         
         [HttpGet("{id:int}", Name = "GetPost")]
-        public IActionResult Get(int id) =>
-            Ok(_context.Posts.First(p => p.PostId == id));
+        public IActionResult Get(int id)
+        {
+            var post = _context.Posts.FirstOrDefault(p => p.PostId == id);
+            return post != null ? (IActionResult)Ok(post) : NotFound();
+        }
 
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, [FromBody]Post post)
@@ -82,9 +85,12 @@ namespace Reddit.Controllers
         }
 
         [HttpGet("{id:int}/comments")]
-        public IActionResult GetComments(int id) =>
-            Ok(_context.Posts.Include(p => p.Comments)
-                .First(p => p.PostId == id).Comments);
+        public IActionResult GetComments(int id)
+        {
+            var post = _context.Posts.Include(p => p.Comments)
+                .FirstOrDefault(p => p.PostId == id);
+            return post != null ? (IActionResult)Ok(post.Comments) : NotFound();
+        }
 
         [Authorize]
         [HttpPost("{id:int}/[action]")]
