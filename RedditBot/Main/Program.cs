@@ -222,7 +222,7 @@ namespace ConsoleApplication
 
             var content = new FormUrlEncodedContent(loginv);
 
-            var response = await client.PostAsync("http://localhost:5000/Account/Login", content);
+            var response = await client.PostAsync("http://localhost:5000/LoginNoRedirect", content);
         }
     }
 }

@@ -84,6 +84,28 @@ namespace Reddit.Controllers
             return View(model);
         }
 
+        // This is for the bot. The other login post sends back the index page
+        // which needs to load a lot of data and takes a lot of time
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginNoRedirect(LoginViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation(1, "User logged in.");
+                    return Ok();
+                }
+
+                return NoContent();
+            }
+
+            return NoContent();
+        }
+
         //
         // GET: /Account/Register
         [HttpGet]
