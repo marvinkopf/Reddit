@@ -147,9 +147,14 @@ function subreddit_unsubscribe(subredditName) {
 }
 
 function create_subreddit(form) {
-    post_form(form, '/api/subreddit').done(function(msg) {
-        window.location = "/r/" + $("#name").val();
-    })
+    post_form(form, '/api/subreddit')
+        .done(function(msg) {
+            window.location = "/r/" + $("#name").val();
+        })
+        .fail(function( xhr, ajaxOptions, thrownError ) {
+            $("#errorMessage").attr({"style" : "color:red"});
+            $("#errorMessage").text(xhr.responseText);
+        });
 }
 
 function submit_link(form) {
