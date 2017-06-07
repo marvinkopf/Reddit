@@ -26,6 +26,7 @@ namespace Reddit.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Post(string name)
         {
             var subreddit = new Subreddit(name);
