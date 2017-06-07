@@ -17,7 +17,7 @@ namespace Reddit.Controllers
         private readonly ApplicationDbContext _context;
 
         private readonly UserManager<ApplicationUser> _manager;
-        
+
         public SubredditController(ApplicationDbContext context, UserManager<ApplicationUser> manager)
         {
             _context = context;
@@ -44,7 +44,7 @@ namespace Reddit.Controllers
 
             _context.Subreddits.Add(subreddit);
             _context.SaveChanges();
-            
+
             return Ok();
         }
 
@@ -53,7 +53,10 @@ namespace Reddit.Controllers
 
         public async Task<IActionResult> Subscribe(string name)
         {
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            if (!_context.Subreddits.Any(s => s.Name == name))
+                return NotFound();
+
+            var user = await _manager.GetUserAsync(HttpContext.User);
 
             var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
             if (oldRelation == null)
@@ -79,7 +82,10 @@ namespace Reddit.Controllers
         [Authorize]
         public async Task<IActionResult> Unsubscribe(string name)
         {
-            var user = await _manager.GetUserAsync(HttpContext.User); 
+            if (!_context.Subreddits.Any(s => s.Name == name))
+                return NotFound();
+
+            var user = await _manager.GetUserAsync(HttpContext.User);
 
             var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
             if (oldRelation == null)
