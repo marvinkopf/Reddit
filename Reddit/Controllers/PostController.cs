@@ -67,6 +67,13 @@ namespace Reddit.Controllers
                 return this.Content("No title given");
             }
 
+            // TODO Should be a valid link/domain, too
+            if (String.IsNullOrWhiteSpace(link))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("No valid link");
+            }
+
             if (String.IsNullOrWhiteSpace(urlToImage))
                 urlToImage = "https://cdn2.iconfinder.com/data/icons/network-roundline/512/link-512.png";
 
