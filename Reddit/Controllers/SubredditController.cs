@@ -28,6 +28,12 @@ namespace Reddit.Controllers
         [Authorize]
         public IActionResult Post(string name)
         {
+            if (_context.Subreddits.Any(s => s.Name == name))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("Entity exists already");
+            }
+
             var subreddit = new Subreddit(name);
 
             _context.Subreddits.Add(subreddit);
