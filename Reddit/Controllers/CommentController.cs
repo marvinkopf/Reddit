@@ -26,6 +26,7 @@ namespace Reddit.Controllers
         }
         
         [HttpGet("{id:int}", Name = "GetComment")]
+        [AllowAnonymous]
         public IActionResult Get(int id) 
         {
             var comment = _context.Comments.Include(c => c.Creator)
