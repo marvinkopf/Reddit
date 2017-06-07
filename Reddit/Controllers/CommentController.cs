@@ -26,9 +26,13 @@ namespace Reddit.Controllers
         }
         
         [HttpGet("{id:int}", Name = "GetComment")]
-        public IActionResult Get(int id) =>
-            Ok(_context.Comments.Include(c => c.Creator)
-                .First(c => c.CommentId == id && c.Creator.Id == _manager.GetUserId(HttpContext.User)));
+        public IActionResult Get(int id) 
+        {
+            var comment = _context.Comments.Include(c => c.Creator)
+                .FirstOrDefault(c => c.CommentId == id && c.Creator.Id == _manager.GetUserId(HttpContext.User)));
+        
+            return comment != null ? (IActionResult)Ok(comment) : NotFound();
+        }
 
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, [FromBody]Comment comment)
