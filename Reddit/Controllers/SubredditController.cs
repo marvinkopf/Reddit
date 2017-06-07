@@ -24,6 +24,13 @@ namespace Reddit.Controllers
             _manager = manager;
         }
 
+        [HttpGet("{name}", Name = "GetSubreddit")]
+        public IActionResult Get(string name)
+        {
+            var sub = _context.Subreddits.FirstOrDefault(s => s.Name == name);
+            return sub != null ? (IActionResult)Ok(sub) : NotFound();
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Post(string name)
