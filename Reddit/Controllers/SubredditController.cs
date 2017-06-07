@@ -31,6 +31,17 @@ namespace Reddit.Controllers
             return sub != null ? (IActionResult)Ok(sub) : NotFound();
         }
 
+        [HttpPut("{name}")]
+        public IActionResult Put(string name, [FromBody]Subreddit sub)
+        {
+            if (name != sub.Name)
+                return BadRequest();
+
+            _context.Entry(sub).State = EntityState.Modified;
+            _context.SaveChanges();
+            return Ok();
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Post(string name)
