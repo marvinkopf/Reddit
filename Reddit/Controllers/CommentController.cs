@@ -82,7 +82,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> Upvote(int id)
         {
-            if (!_context.Comments.Any(c => c.PostId == id))
+            if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
             await UnDownvote(id);
@@ -120,7 +120,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnUpvote(int id)
         {
-            if (!_context.Comments.Any(c => c.PostId == id))
+            if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User); 
@@ -143,7 +143,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> Downvote(int id)
         {
-            if (!_context.Comments.Any(c => c.PostId == id))
+            if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
             await UnUpvote(id);
@@ -181,7 +181,7 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnDownvote(int id)
         {
-            if (!_context.Comments.Any(c => c.PostId == id))
+            if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User); 
