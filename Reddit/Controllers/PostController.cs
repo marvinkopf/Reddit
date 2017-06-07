@@ -103,6 +103,9 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> Upvote(int id)
         {
+            if (!_context.Posts.Any(p => p.PostId == id))
+                return NotFound();
+
             await UnDownvote(id);
 
             var user = await _manager.GetUserAsync(HttpContext.User);
@@ -138,6 +141,9 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnUpvote(int id)
         {
+            if (!_context.Posts.Any(p => p.PostId == id))
+                return NotFound();
+
             var user = await _manager.GetUserAsync(HttpContext.User);
             var oldRelation = _context.User_X_Post_Upvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Upvoted)
@@ -158,6 +164,9 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> Downvote(int id)
         {
+            if (!_context.Posts.Any(p => p.PostId == id))
+                return NotFound();
+
             await UnUpvote(id);
 
             var user = await _manager.GetUserAsync(HttpContext.User);
@@ -193,6 +202,9 @@ namespace Reddit.Controllers
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> UnDownvote(int id)
         {
+            if (!_context.Posts.Any(p => p.PostId == id))
+                return NotFound();
+                
             var user = await _manager.GetUserAsync(HttpContext.User);
             var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Downvoted)
