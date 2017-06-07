@@ -54,6 +54,12 @@ namespace Reddit.Controllers
                 return this.Content("Text empty");
             }
 
+            if (postId == null)
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("No postid given");
+            }
+
             var comment = new Comment(
                             txt,
                             DateTime.Now,
