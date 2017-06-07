@@ -46,7 +46,7 @@ namespace Reddit.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(string txt, int postId, int? parentId)
+        public async Task<IActionResult> Post(string txt, int? postId, int? parentId)
         {
             if (String.IsNullOrWhiteSpace(txt))
             {
@@ -58,7 +58,7 @@ namespace Reddit.Controllers
                             txt,
                             DateTime.Now,
                             (await _manager.GetUserAsync(HttpContext.User)).Id,
-                            postId) { ParentId = parentId };
+                            postId.Value) { ParentId = parentId };
 
             _context.Comments.Add(comment);
             _context.SaveChanges();
