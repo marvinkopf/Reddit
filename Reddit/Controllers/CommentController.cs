@@ -73,7 +73,6 @@ namespace Reddit.Controllers
             return CreatedAtRoute("GetComment", new { id = comment.CommentId }, comment);
         }
 
-        [Authorize]
         [HttpPost("{id:int}/[action]")]
         public async Task<IActionResult> Upvote(int id)
         {
