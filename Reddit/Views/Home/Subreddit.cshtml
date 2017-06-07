@@ -71,7 +71,15 @@
         <li>
             <a asp-controller="Home" asp-action="Submit" class="navbar-brand">Submit Link</a>
         </li>
-        @if (Model.Item2.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
+        @if (userManager.GetUserId(User) == null)
+        {
+            <li>
+                <a id="subscribe" href="/Account/Login?ReturnUrl=/r/@Model.Item2.Name" class="navbar-brand">
+                    Subscribe
+                </a>
+            </li>
+        }
+        else if (Model.Item2.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
             && x.Subscribed))
         {
             <li>
