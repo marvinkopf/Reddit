@@ -35,12 +35,28 @@
                             }
                             else
                             {
-                                <span id="@posts[0].PostId-upbtn" onclick="upvote_post(@posts[0].PostId, @posts[0].Score)" class="upvote">
-                                </span>
-                                <div id="@posts[0].PostId-score">@posts[0].Score</div>
-                        
-                                <span id="@posts[0].PostId-downbtn" onclick="downvote_post(@posts[0].PostId, @posts[0].Score)" class="downvote">
-                                </span>
+                                @if (userManager.GetUserId(User) == null)
+                                {
+                                    <a href="/Account/Login">
+                                        <span id="@posts[0].PostId-upbtn" class="upvote">
+                                        </span>
+                                    </a>
+                                    <div class="vote-score" id="@posts[0].PostId-score">@posts[0].Score</div>
+
+                                    <a href="/Account/Login">
+                                        <span id="@posts[0].PostId-downbtn" class="downvote">
+                                        </span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span id="@posts[0].PostId-upbtn" onclick="upvote_post(@posts[0].PostId, @posts[0].Score)" class="upvote">
+                                    </span>
+                                    <div id="@posts[0].PostId-score">@posts[0].Score</div>
+                            
+                                    <span id="@posts[0].PostId-downbtn" onclick="downvote_post(@posts[0].PostId, @posts[0].Score)" class="downvote">
+                                    </span>
+                                }
                             }
                         }
                     </div>
@@ -65,30 +81,7 @@
 in <a style="color:#369;font-size:small;" class="creator" href='/r/@item.Post.SubredditName'>r/@item.Post.SubredditName</a>
 </div>
 
-<div class="comment" id="comment-@item.CommentId">
-
-@{var timePassed = TimePassedAsString(@item.Created);}
-
-
-
-<div class="upvote-btn">
-        <span id="comment-@item.CommentId-upbtn" onclick="upvote_comment(@item.CommentId, @item.Score)" class="upvote">
-            </span>
-    
-            <span id="comment-@item.CommentId-downbtn" onclick="downvote_comment(@item.CommentId, @item.Score)" class="downvote">
-            </span>
-</div>
-
-<div class="content" style="margin-top:5px;margin-left:5px;margin-bottom:5px;">
-            <div>
-                <a href="#" class="expander" style="font-size:small" onclick="toggle_comment(@item.CommentId); return false;">[-]</a>
-                <a href="/user/@item.Creator.UserName" class='author'>@item.Creator.UserName</a>
-                <span class="score" id="comment-@item.CommentId-score">@item.Score Points</span>
-                <span class="date">@timePassed</span><br>
-                <div  class="text" style="margin: 5px 0;">@item.Txt</div>
-            </div>
-    </div>
-</div>
+@Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(item, false))
     </li>
     }
 
@@ -119,13 +112,29 @@ in <a style="color:#369;font-size:small;" class="creator" href='/r/@item.Post.Su
                             }
                             else
                             {
-                                <span id="@item.PostId-upbtn" onclick="upvote_post(@item.PostId, @item.Score)" class="upvote">
-                                </span>
+                                @if (userManager.GetUserId(User) == null)
+                                {
+                                    <a href="/Account/Login">
+                                        <span id="@item.PostId-upbtn" class="upvote">
+                                        </span>
+                                    </a>
+                                    <div class="vote-score" id="@item.PostId-score">@item.Score</div>
 
-                                <div id="@item.PostId-score">@item.Score</div>
-                        
-                                <span id="@item.PostId-downbtn" onclick="downvote_post(@item.PostId, @item.Score)" class="downvote">
-                                </span>
+                                    <a href="/Account/Login">
+                                        <span id="@item.PostId-downbtn" class="downvote">
+                                        </span>
+                                    </a>
+                                }
+                                else
+                                {   
+                                    <span id="@item.PostId-upbtn" onclick="upvote_post(@item.PostId, @item.Score)" class="upvote">
+                                    </span>
+
+                                    <div id="@item.PostId-score">@item.Score</div>
+                            
+                                    <span id="@item.PostId-downbtn" onclick="downvote_post(@item.PostId, @item.Score)" class="downvote">
+                                    </span>
+                                }
                             }
                         }
                     </div>
