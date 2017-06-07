@@ -46,6 +46,12 @@ namespace Reddit.Controllers
         public async Task<IActionResult> Post(string title, string link, string subreddit,
             string urlToImage)
         {
+            if (String.IsNullOrWhiteSpace(subreddit))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("No subreddit given");
+            }
+
             if (!_context.Subreddits.Any(s => s.Name == subreddit))
             {
                 this.Response.StatusCode = 409;
