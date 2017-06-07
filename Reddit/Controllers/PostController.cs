@@ -37,7 +37,7 @@ namespace Reddit.Controllers
         public IActionResult Put(int id, [FromBody]Post post)
         {
             if (id != post.PostId)
-                throw new Exception();
+                return BadRequest();
 
             _context.Entry(post).State = EntityState.Modified;
             _context.SaveChanges();
@@ -204,7 +204,7 @@ namespace Reddit.Controllers
         {
             if (!_context.Posts.Any(p => p.PostId == id))
                 return NotFound();
-                
+
             var user = await _manager.GetUserAsync(HttpContext.User);
             var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Downvoted)
