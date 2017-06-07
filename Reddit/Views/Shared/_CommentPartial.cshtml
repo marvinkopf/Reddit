@@ -93,19 +93,21 @@
             </form>
         </div>
         
-        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score).Take(3))
+        @foreach (var childComment in @Model.Item1.Children?.OrderByDescending(c => c.Score).Take(3)
+                    ?? new List<Comment>())
         {
                 @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
         }
 
-        @foreach (var childComment in @Model.Item1.Children.OrderByDescending(c => c.Score).Skip(3))
+        @foreach (var childComment in @Model.Item1.Children?.OrderByDescending(c => c.Score).Skip(3)
+                    ?? new List<Comment>())
         {
             <div class="hidden">
                 @Html.Partial("_CommentPartial", Tuple.Create<Comment, bool>(childComment, !Model.Item2))
             </div>
         }
 
-        @{var remainingComments = @Model.Item1.Children.Count() - 3;}
+        @{var remainingComments = @Model.Item1.Children?.Count() - 3;}
         @if (remainingComments > 0)
         {
             <a class="remaining-comments"
