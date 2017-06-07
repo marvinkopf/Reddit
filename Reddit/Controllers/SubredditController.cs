@@ -34,6 +34,12 @@ namespace Reddit.Controllers
                 return this.Content("Entity exists already");
             }
 
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("No name given");
+            }
+
             var subreddit = new Subreddit(name);
 
             _context.Subreddits.Add(subreddit);
