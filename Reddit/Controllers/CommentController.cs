@@ -48,6 +48,12 @@ namespace Reddit.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(string txt, int postId, int? parentId)
         {
+            if (String.IsNullOrWhiteSpace(txt))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("Text empty");
+            }
+
             var comment = new Comment(
                             txt,
                             DateTime.Now,
@@ -165,7 +171,7 @@ namespace Reddit.Controllers
         {
             if (!_context.Comments.Any(c => c.PostId == id))
                 return NotFound();
-                
+
             var user = await _manager.GetUserAsync(HttpContext.User); 
             var oldRelation = _context.User_X_Comment_Downvoted.Find(user.Id, id);
             if (oldRelation != null && oldRelation.Downvoted)
