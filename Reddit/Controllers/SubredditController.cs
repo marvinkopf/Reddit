@@ -52,7 +52,7 @@ namespace Reddit.Controllers
             _context.Subreddits.Add(subreddit);
             _context.SaveChanges();
 
-            return Ok();
+            return CreatedAtRoute("GetSubreddit", new { Name = subreddit.Name }, subreddit);
         }
 
         [HttpPost("{name}/[action]")]
