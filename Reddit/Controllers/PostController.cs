@@ -58,6 +58,12 @@ namespace Reddit.Controllers
                 return this.Content("Subreddit doesn't exist");
             }
 
+            if (String.IsNullOrWhiteSpace(title))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("No title given");
+            }
+
             var post = new Post(
                             title,
                             link,
