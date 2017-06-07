@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +46,12 @@ namespace Reddit.Controllers
         public async Task<IActionResult> Post(string title, string link, string subreddit,
             string urlToImage)
         {
+            if (!_context.Subreddits.Any(s => s.Name == subreddit))
+            {
+                this.Response.StatusCode = 409;
+                return this.Content("Subreddit doesn't exist");
+            }
+
             var post = new Post(
                             title,
                             link,
