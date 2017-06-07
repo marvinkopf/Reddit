@@ -147,9 +147,9 @@ function subreddit_unsubscribe(subredditName) {
 }
 
 function create_subreddit(form) {
-    post_form(form, '/api/subreddit');
-
-    window.location = "/r/" + $("#name").val();
+    post_form(form, '/api/subreddit').done(function(msg) {
+        window.location = "/r/" + $("#name").val();
+    })
 }
 
 function submit_link(form) {
