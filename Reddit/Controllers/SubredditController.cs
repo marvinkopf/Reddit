@@ -11,7 +11,6 @@ using Reddit.Models;
 
 namespace Reddit.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class SubredditController : Controller
     {
