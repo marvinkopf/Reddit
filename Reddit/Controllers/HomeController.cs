@@ -122,6 +122,8 @@ namespace Reddit.Controllers
             var user = _context.Users
                             .Include(u => u.CreatedComments).ThenInclude(c => c.UpvotedBy)
                             .Include(u => u.CreatedComments).ThenInclude(c => c.DownvotedBy)
+                            .Include(u => u.CreatedComments).ThenInclude(c => c.Post)
+                                                                .ThenInclude(p => p.Creator)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.UpvotedBy)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.DownvotedBy)
                             .Include(u => u.CreatedPosts).ThenInclude(p => p.Comments)
