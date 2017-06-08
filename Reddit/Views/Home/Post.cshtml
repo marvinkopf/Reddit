@@ -53,7 +53,7 @@
     <div class="content">
         <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
         <div class="sub">
-            submitted @TimePassedAsString(@Model.Created) ago by
+            submitted @TimePassedAsString(@Model.Created) by
             @if (Model.Creator != null)
             {
                 <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a>
