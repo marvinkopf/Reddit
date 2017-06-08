@@ -32,8 +32,14 @@ namespace ConsoleApplication
 
         public static void Main(string[] args)
         {
-            //CreateAccounts().Wait();
-            PostLinks().Wait();
+            try {
+                PostLinks().Wait();
+            }
+            catch
+            {
+                CreateAccounts().Wait();
+                PostLinks().Wait();
+            }
         }
 
         public static async Task CreateAccounts()
