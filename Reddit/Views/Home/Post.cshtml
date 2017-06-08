@@ -53,8 +53,15 @@
     <div class="content">
         <a class=\"post-title\" href=//@Model.Link>@Model.Title</a><br>
         <div class="sub">
-            created @TimePassedAsString(Model.Created) by
-            <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a>
+            submitted @TimePassedAsString(@Model.Created) ago by
+            @if (Model.Creator != null)
+            {
+                <a class="creator" href=/user/@Model.Creator.UserName>@Model.Creator.UserName</a>
+            }
+            else
+            {
+                <text>[deleted]</text>
+            }
         </div>
         <div class="sub-2">
             <a href='/post/@Model.PostId'>@Model.Comments.Count() comments</a>

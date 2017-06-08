@@ -68,8 +68,15 @@
             <div class="content">
                 <a class="post-title" href="//@post.Link">@post.Title</a><br>
                 <div class="sub">
-                    submitted @TimePassedAsString(@post.Created) ago by 
-                    <a class="creator" href=/user/@post.Creator.UserName>@post.Creator.UserName</a>
+                    submitted @TimePassedAsString(@post.Created) ago by
+                    @if (post.Creator != null)
+                    {
+                        <a class="creator" href=/user/@post.Creator.UserName>@post.Creator.UserName</a>
+                    }
+                    else
+                    {
+                        <text>[deleted]</text>
+                    }
                      in <a class="creator" href='/r/@post.SubredditName'>r/@post.SubredditName</a>
                 </div>
                 <div class="sub-2">
