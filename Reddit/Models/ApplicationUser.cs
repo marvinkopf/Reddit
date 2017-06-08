@@ -20,6 +20,9 @@ namespace Reddit.Models
         public ICollection<User_X_Subreddit_Moderator> ModeratedSubreddits { get; set; }
 
         [JsonIgnore]
+        public ICollection<User_X_Subreddit_CanView> PrivateViewableSubreddits { get; set; }
+
+        [JsonIgnore]
         public ICollection<User_X_Comment_Downvoted> DownvotedComments { get; set; }
 
         [JsonIgnore]

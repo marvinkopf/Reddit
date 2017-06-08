@@ -40,5 +40,8 @@ namespace Reddit.Models
 
         [JsonIgnore]
         public ICollection<User_X_Subreddit_Moderator> Moderators { get; set; }
+
+        [JsonIgnore]
+        public ICollection<User_X_Subreddit_CanView> PrivateViewers { get; set; }
     }
 }
