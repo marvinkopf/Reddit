@@ -102,5 +102,6 @@
         var count = Model.Item2.SubscribedUsers.Where(x => x.Subscribed).Count();
     }
 
-    <div style="text-align:center">@count subscribers</div>
+    <div style="text-align:center">@count subscribers</div><br>
+    <div style="text-align:center">@Model.Item2.SidebarText</div>
 </div>

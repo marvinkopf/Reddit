@@ -31,6 +31,10 @@ namespace Reddit.Models
             }
         }
 
+        public string SidebarText { get; set; }
+
+        public bool IsPrivate { get; set; }
+
         [JsonIgnore]
         public ICollection<User_X_Subreddit_Subscription> SubscribedUsers { get; set; }
     }

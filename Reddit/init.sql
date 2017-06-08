@@ -10,7 +10,9 @@ CREATE TABLE posts (
 );
 
 CREATE TABLE subreddits (
-    name VARCHAR(30) PRIMARY KEY
+    name VARCHAR(30) PRIMARY KEY,
+    sidebartext TEXT,
+    isPrivate BOOLEAN
 );
 
 CREATE TABLE comments (
@@ -58,11 +60,11 @@ CREATE TABLE user_x_subreddit_subscription (
     PRIMARY KEY(userId, subredditName)
 );
 
-INSERT INTO subreddits VALUES ("news");
-INSERT INTO subreddits VALUES ("google-news");
-INSERT INTO subreddits VALUES ("abc-news-au");
-INSERT INTO subreddits VALUES ("bbc-sport");
-INSERT INTO subreddits VALUES ("reddit");
+INSERT INTO subreddits VALUES ("news", 'This is our for general news.', 0);
+INSERT INTO subreddits VALUES ("google-news", "News taken from google.", 0);
+INSERT INTO subreddits VALUES ("abc-news-au", "Abc-news-au.", 0);
+INSERT INTO subreddits VALUES ("bbc-sport", "Sport stuff.", 0);
+INSERT INTO subreddits VALUES ("reddit", "Everything about reddit.", 0);
 
 INSERT INTO posts VALUES (4, 'Imgur', 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 'www.imgur.com', 6, 'news', '');
 INSERT INTO comments VALUES (0, "Awesome!", 'f6b51ae3-4ae4-49a7-acdb-9c06fd7bd44c', CURRENT_DATE, 0, 0, NULL);
