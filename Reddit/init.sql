@@ -26,52 +26,45 @@ CREATE TABLE comments (
 );
 
 CREATE TABLE user_x_post_upvoted (
+    user_x_post_upvotedId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    postId INTEGER,
-    upvoted BOOLEAN,
-    PRIMARY KEY(userId, postId)
+    postId INTEGER
 );
 
 CREATE TABLE user_x_post_downvoted (
+    user_x_post_downvotedId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    postId INTEGER,
-    downvoted BOOLEAN,
-    PRIMARY KEY(userId, postId)
+    postId INTEGER
 );
 
 CREATE TABLE user_x_comment_upvoted (
+    user_x_comment_upvotedId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    commentId INTEGER,
-    upvoted BOOLEAN,
-    PRIMARY KEY(userId, commentId)
+    commentId INTEGER
 );
 
 CREATE TABLE user_x_comment_downvoted (
+    user_x_comment_downvotedId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    commentId INTEGER,
-    downvoted BOOLEAN,
-    PRIMARY KEY(userId, commentId)
+    commentId INTEGER
 );
 
 CREATE TABLE user_x_subreddit_subscription (
+    user_x_subreddit_subscriptionId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    subredditName VARCHAR(55),
-    subscribed BOOLEAN,
-    PRIMARY KEY(userId, subredditName)
+    subredditName VARCHAR(55)
 );
 
 CREATE TABLE user_x_subreddit_moderator (
+    user_x_subreddit_moderatorId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    subredditName VARCHAR(55),
-    isModerator BOOLEAN,
-    PRIMARY KEY(userId, subredditName)
+    subredditName VARCHAR(55)
 );
 
 CREATE TABLE user_x_subreddit_canView (
+    user_x_subreddit_canViewId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId VARCHAR(55),
-    subredditName VARCHAR(55),
-    canView BOOLEAN,
-    PRIMARY KEY(userId, subredditName)
+    subredditName VARCHAR(55)
 );
 
 INSERT INTO subreddits VALUES ("news", 'This is our for general news.', 0);

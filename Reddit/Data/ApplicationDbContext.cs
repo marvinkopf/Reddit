@@ -22,50 +22,6 @@ namespace Reddit.Data
                         .HasOne(c => c.Parent)
                         .WithMany(c => c.Children);
 
-                builder.Entity<User_X_Post_Upvoted>()
-                        .HasKey(x => new { x.UserId, x.PostId });
-
-                builder.Entity<User_X_Post_Upvoted>()
-                        .HasOne<Post>(x => x.Post)
-                        .WithMany(p => p.UpvotedBy);
-
-                builder.Entity<User_X_Post_Upvoted>()
-                        .HasOne<ApplicationUser>(x => x.User)
-                        .WithMany(u => u.UpvotedPosts);
-
-                builder.Entity<User_X_Post_Downvoted>()
-                        .HasKey(x => new { x.UserId, x.PostId });
-
-                builder.Entity<User_X_Post_Downvoted>()
-                        .HasOne<Post>(x => x.Post)
-                        .WithMany(p => p.DownvotedBy);
-
-                builder.Entity<User_X_Post_Downvoted>()
-                        .HasOne<ApplicationUser>(x => x.User)
-                        .WithMany(u => u.DownvotedPosts);
-
-                builder.Entity<User_X_Comment_Upvoted>()
-                        .HasKey(x => new { x.UserId, x.CommentId });
-
-                builder.Entity<User_X_Comment_Upvoted>()
-                        .HasOne<Comment>(x => x.Comment)
-                        .WithMany(c => c.UpvotedBy);
-
-                builder.Entity<User_X_Comment_Upvoted>()
-                        .HasOne<ApplicationUser>(x => x.User)
-                        .WithMany(u => u.UpvotedComments);
-
-                builder.Entity<User_X_Comment_Downvoted>()
-                        .HasKey(x => new { x.UserId, x.CommentId });
-
-                builder.Entity<User_X_Comment_Downvoted>()
-                        .HasOne<Comment>(x => x.Comment)
-                        .WithMany(c => c.DownvotedBy);
-
-                builder.Entity<User_X_Comment_Downvoted>()
-                        .HasOne<ApplicationUser>(x => x.User)
-                        .WithMany(u => u.DownvotedComments);
-
                 builder.Entity<ApplicationUser>()
                         .HasMany<Comment>(u => u.CreatedComments)
                         .WithOne(c => c.Creator);
@@ -73,17 +29,6 @@ namespace Reddit.Data
                 builder.Entity<ApplicationUser>()
                         .HasMany<Post>(u => u.CreatedPosts)
                         .WithOne(p => p.Creator);
-
-                builder.Entity<User_X_Subreddit_Subscription>()
-                        .HasKey(x => new { x.UserId, x.SubredditName });
-
-                builder.Entity<User_X_Subreddit_Subscription>()
-                        .HasOne<ApplicationUser>(x => x.User)
-                        .WithMany(u => u.Subscriptions);
-
-                builder.Entity<User_X_Subreddit_Subscription>()
-                        .HasOne<Subreddit>(x => x.Subreddit)
-                        .WithMany(s => s.SubscribedUsers);
 
                 builder.Entity<Post>()
                         .Property(p => p.SubredditName).HasColumnName("subreddit");

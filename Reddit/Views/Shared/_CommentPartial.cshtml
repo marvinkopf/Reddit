@@ -24,7 +24,7 @@
 <div class="comment" style="background-color: @backgroundcolor;" id="comment-@Model.Item1.CommentId">
     <div class="upvote-btn">
         @{
-            if (Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted)
+            if (Model.Item1.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null)
             {
                 <span style="color:orange;" id="comment-@Model.Item1.CommentId-upbtn" onclick="un_upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score - 1)" class="upvote">
                 </span>
@@ -32,7 +32,7 @@
                 <span id="comment-@Model.Item1.CommentId-downbtn" onclick="downvote_comment(@Model.Item1.CommentId, @Model.Item1.Score - 1)" class="downvote">
                 </span>
             }
-            else if (Model.Item1.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.Item1.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted)
+            else if (Model.Item1.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null)
             {
                 <span id="comment-@Model.Item1.CommentId-upbtn" onclick="upvote_comment(@Model.Item1.CommentId, @Model.Item1.Score + 1)" class="upvote">
                 </span>

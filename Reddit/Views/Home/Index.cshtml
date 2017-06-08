@@ -11,7 +11,7 @@
         <div class="post">
             <div class="upvote-btn">
                 @{
-                    if (post.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && post.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted) {
+                    if (post.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null) {
                         <span style="color:orange;" id="@post.PostId-upbtn" onclick="un_upvote_post(@post.PostId, @post.Score - 1)" class="upvote">
                         </span>
                         <div style="color:orange;" class="vote-score" id="@post.PostId-score" style="color:orange">@post.Score</div>
@@ -19,7 +19,7 @@
                         <span id="@post.PostId-downbtn" onclick="downvote_post(@post.PostId, @post.Score - 1)" class="downvote">
                         </span>
                     }
-                    else if (post.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && post.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted) {
+                    else if (post.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null) {
                         <span id="@post.PostId-upbtn" onclick="upvote_post(@post.PostId, @post.Score + 1)" class="upvote">
                         </span>
                         <div style="color:blue;" class="vote-score" id="@post.PostId-score" style="color:blue">@post.Score</div>

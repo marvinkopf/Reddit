@@ -103,31 +103,21 @@ namespace Reddit.Controllers
             await UnDownvote(id);
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-
-            var oldRelation = _context.User_X_Post_Upvoted.Find(user.Id, id);
-            if (oldRelation == null)
+            var relation = _context.User_X_Post_Upvoted.FirstOrDefault(uxp =>
+                                uxp.UserId == user.Id && uxp.PostId == id);
+            if (relation == null)
             {
-                var relation = new User_X_Post_Upvoted();
+                relation = new User_X_Post_Upvoted();
                 relation.PostId = id;
                 relation.UserId = user.Id;
-                relation.Upvoted = true;
                 _context.User_X_Post_Upvoted.Add(relation);
 
                 var post = _context.Posts.Find(id);
                 post.Score += 1;
                 _context.Entry(post).State = EntityState.Modified;
-            }
-            else if (!oldRelation.Upvoted)
-            {
-                var post = _context.Posts.Find(id);
-                post.Score += 1;
-                _context.Entry(post).State = EntityState.Modified;
 
-                oldRelation.Upvoted = true;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
 
             return Ok();
         }
@@ -139,15 +129,15 @@ namespace Reddit.Controllers
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var oldRelation = _context.User_X_Post_Upvoted.Find(user.Id, id);
-            if (oldRelation != null && oldRelation.Upvoted)
+            var relation = _context.User_X_Post_Upvoted.FirstOrDefault(uxp =>
+                                uxp.UserId == user.Id && uxp.PostId == id);
+            if (relation != null)
             {
                 var post = _context.Posts.Find(id);
                 post.Score -= 1;
                 _context.Entry(post).State = EntityState.Modified;
 
-                oldRelation.Upvoted = false;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                _context.Entry(relation).State = EntityState.Deleted;
 
                 await _context.SaveChangesAsync();
             }
@@ -165,30 +155,21 @@ namespace Reddit.Controllers
 
             var user = await _manager.GetUserAsync(HttpContext.User);
 
-            var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
-            if (oldRelation == null)
+            var relation = _context.User_X_Post_Downvoted.FirstOrDefault( uxp =>
+                                uxp.UserId == user.Id && uxp.PostId == id);
+            if (relation == null)
             {
-                var relation = new User_X_Post_Downvoted();
+                relation = new User_X_Post_Downvoted();
                 relation.PostId = id;
                 relation.UserId = user.Id;
-                relation.Downvoted = true;
                 _context.User_X_Post_Downvoted.Add(relation);
 
                 var post = _context.Posts.Find(id);
                 post.Score -= 1;
                 _context.Entry(post).State = EntityState.Modified;
-            }
-            else if (!oldRelation.Downvoted)
-            {
-                var post = _context.Posts.Find(id);
-                post.Score -= 1;
-                _context.Entry(post).State = EntityState.Modified;
 
-                oldRelation.Downvoted = true;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
 
             return Ok();
         }
@@ -200,15 +181,15 @@ namespace Reddit.Controllers
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var oldRelation = _context.User_X_Post_Downvoted.Find(user.Id, id);
-            if (oldRelation != null && oldRelation.Downvoted)
+            var relation = _context.User_X_Post_Downvoted.FirstOrDefault(uxp =>
+                                uxp.UserId == user.Id && uxp.PostId == id);
+            if (relation != null)
             {
                 var post = _context.Posts.Find(id);
                 post.Score += 1;
                 _context.Entry(post).State = EntityState.Modified;
 
-                oldRelation.Downvoted = false;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                _context.Entry(relation).State = EntityState.Deleted;
 
                 await _context.SaveChangesAsync();
             }

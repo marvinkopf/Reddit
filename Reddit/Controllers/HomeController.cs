@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -46,9 +44,7 @@ namespace Reddit.Controllers
                                             .SingleOrDefault())
                                         .Where(p => user
                                             .Subscriptions.Any(
-                                                x => x.SubredditName == p.SubredditName
-                                                        &&
-                                                        x.Subscribed))
+                                                x => x.SubredditName == p.SubredditName))
                                         .OrderByDescending(p => p.Created)
                                         .Take(30),
                     Subreddits = _context.Subreddits.Include(s => s.SubscribedUsers)

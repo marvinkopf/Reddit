@@ -87,28 +87,18 @@ namespace Reddit.Controllers
             await UnDownvote(id);
             
             var user = await _manager.GetUserAsync(HttpContext.User); 
-
-            var oldRelation = _context.User_X_Comment_Upvoted.Find(user.Id, id);
-            if (oldRelation == null)
+            var relation = _context.User_X_Comment_Upvoted.FirstOrDefault(uxc =>
+                                uxc.UserId == user.Id && uxc.CommentId == id);
+            if (relation == null)
             {
-                var relation = new User_X_Comment_Upvoted();
+                relation = new User_X_Comment_Upvoted();
                 relation.CommentId = id;
                 relation.UserId = user.Id;
-                relation.Upvoted = true;
                 _context.User_X_Comment_Upvoted.Add(relation);
 
                 var Comment = _context.Comments.Find(id);
                 Comment.Score += 1;
                 _context.Entry(Comment).State = EntityState.Modified;
-            }
-            else if (!oldRelation.Upvoted)
-            {
-                var Comment = _context.Comments.Find(id);
-                Comment.Score += 1;
-                _context.Entry(Comment).State = EntityState.Modified;
-
-                oldRelation.Upvoted = true;
-                _context.Entry(oldRelation).State = EntityState.Modified;
             }
 
             await _context.SaveChangesAsync();
@@ -122,16 +112,16 @@ namespace Reddit.Controllers
             if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
-            var user = await _manager.GetUserAsync(HttpContext.User); 
-            var oldRelation = _context.User_X_Comment_Upvoted.Find(user.Id, id);
-            if (oldRelation != null && oldRelation.Upvoted)
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var relation = _context.User_X_Comment_Upvoted.FirstOrDefault(uxc =>
+                                uxc.UserId == user.Id && uxc.CommentId == id);
+            if (relation != null)
             {
                 var Comment = _context.Comments.Find(id);
                 Comment.Score -= 1;
                 _context.Entry(Comment).State = EntityState.Modified;
 
-                oldRelation.Upvoted = false;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                _context.Entry(relation).State = EntityState.Deleted;
 
                 await _context.SaveChangesAsync();
             }
@@ -147,29 +137,19 @@ namespace Reddit.Controllers
 
             await UnUpvote(id);
 
-            var user = await _manager.GetUserAsync(HttpContext.User); 
-
-            var oldRelation = _context.User_X_Comment_Downvoted.Find(user.Id, id);
-            if (oldRelation == null)
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var relation = _context.User_X_Comment_Downvoted.FirstOrDefault(uxc =>
+                                uxc.UserId == user.Id && uxc.CommentId == id);
+            if (relation == null)
             {
-                var relation = new User_X_Comment_Downvoted();
+                relation = new User_X_Comment_Downvoted();
                 relation.CommentId = id;
                 relation.UserId = user.Id;
-                relation.Downvoted = true;
                 _context.User_X_Comment_Downvoted.Add(relation);
 
                 var Comment = _context.Comments.Find(id);
                 Comment.Score -= 1;
                 _context.Entry(Comment).State = EntityState.Modified;
-            }
-            else if (!oldRelation.Downvoted)
-            {
-                var Comment = _context.Comments.Find(id);
-                Comment.Score -= 1;
-                _context.Entry(Comment).State = EntityState.Modified;
-
-                oldRelation.Downvoted = true;
-                _context.Entry(oldRelation).State = EntityState.Modified;
             }
 
             await _context.SaveChangesAsync();
@@ -183,16 +163,16 @@ namespace Reddit.Controllers
             if (!_context.Comments.Any(c => c.CommentId == id))
                 return NotFound();
 
-            var user = await _manager.GetUserAsync(HttpContext.User); 
-            var oldRelation = _context.User_X_Comment_Downvoted.Find(user.Id, id);
-            if (oldRelation != null && oldRelation.Downvoted)
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var relation = _context.User_X_Comment_Downvoted.FirstOrDefault(uxc =>
+                                uxc.UserId == user.Id && uxc.CommentId == id);
+            if (relation != null)
             {
                 var Comment = _context.Comments.Find(id);
                 Comment.Score += 1;
                 _context.Entry(Comment).State = EntityState.Modified;
 
-                oldRelation.Downvoted = false;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                _context.Entry(relation).State = EntityState.Deleted;
 
                 await _context.SaveChangesAsync();
             }

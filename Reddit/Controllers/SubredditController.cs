@@ -74,20 +74,14 @@ namespace Reddit.Controllers
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-
-            var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
-            if (oldRelation == null)
+            var relation = _context.User_X_Subreddit_Subscription.FirstOrDefault(uxs =>
+                                uxs.UserId == user.Id && uxs.SubredditName == name);
+            if (relation == null)
             {
-                var relation = new User_X_Subreddit_Subscription();
+                relation = new User_X_Subreddit_Subscription();
                 relation.SubredditName = name;
                 relation.UserId = user.Id;
-                relation.Subscribed = true;
                 _context.User_X_Subreddit_Subscription.Add(relation);
-            }
-            else if (!oldRelation.Subscribed)
-            {
-                oldRelation.Subscribed = true;
-                _context.Entry(oldRelation).State = EntityState.Modified;
             }
 
             await _context.SaveChangesAsync();
@@ -103,20 +97,11 @@ namespace Reddit.Controllers
                 return NotFound();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-
-            var oldRelation = _context.User_X_Subreddit_Subscription.Find(user.Id, name);
-            if (oldRelation == null)
+            var relation = _context.User_X_Subreddit_Subscription.FirstOrDefault(uxs =>
+                                uxs.UserId == user.Id && uxs.SubredditName == name);
+            if (relation != null)
             {
-                var relation = new User_X_Subreddit_Subscription();
-                relation.SubredditName = name;
-                relation.UserId = user.Id;
-                relation.Subscribed = false;
-                _context.User_X_Subreddit_Subscription.Add(relation);
-            }
-            else if (oldRelation.Subscribed)
-            {
-                oldRelation.Subscribed = false;
-                _context.Entry(oldRelation).State = EntityState.Modified;
+                _context.Entry(relation).State = EntityState.Deleted;
             }
 
             await _context.SaveChangesAsync();

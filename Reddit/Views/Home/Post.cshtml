@@ -8,7 +8,7 @@
 <div class="post">
     <div class="upvote-btn">
         @{
-                    if (Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Upvoted) {
+                    if (Model.UpvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null) {
                         <span style="color:orange;" id="@Model.PostId-upbtn" onclick="un_upvote_post(@Model.PostId, @Model.Score - 1)" class="upvote">
                         </span>
                         <div style="color:orange;" class="vote-score" id="@Model.PostId-score" style="color:orange">@Model.Score</div>
@@ -16,7 +16,7 @@
                         <span id="@Model.PostId-downbtn" onclick="downvote_post(@Model.PostId, @Model.Score - 1)" class="downvote">
                         </span>
                     }
-                    else if (Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null && Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)).Downvoted) {
+                    else if (Model.DownvotedBy.FirstOrDefault(x => x.UserId == userManager.GetUserId(User)) != null) {
                         <span id="@Model.PostId-upbtn" onclick="upvote_post(@Model.PostId, @Model.Score + 1)" class="upvote">
                         </span>
                         <div style="color:blue;" class="vote-score" id="@Model.PostId-score" style="color:blue">@Model.Score</div>
@@ -92,8 +92,7 @@
         <li>
             <a asp-controller="Home" asp-action="Submit" class="">Submit Link</a>
         </li>
-        @if (Model.Subreddit.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
-            && x.Subscribed))
+        @if (Model.Subreddit.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)))
         {
             <li>
                 <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.SubredditName')" class="">
@@ -112,7 +111,7 @@
     </ul>
 
     @{
-        var count = Model.Subreddit.SubscribedUsers.Where(x => x.Subscribed).Count();
+        var count = Model.Subreddit.SubscribedUsers.Count();
     }
 
     <div style="text-align:center">@count subscribers</div>

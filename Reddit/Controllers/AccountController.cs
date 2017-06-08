@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Reddit.Data;
 using Reddit.Models;
 using Reddit.Models.AccountViewModels;
 using Reddit.Services;
@@ -21,18 +22,22 @@ namespace Reddit.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
+        private readonly ApplicationDbContext _context;
+
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _context = context;
         }
 
         //
@@ -130,23 +135,21 @@ namespace Reddit.Controllers
                     var subscriptions = new User_X_Subreddit_Subscription[]
                     {
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
-                                                                SubredditName = "news",
-                                                                Subscribed = true },
+                                                                SubredditName = "news"},
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
-                                                                SubredditName = "google-news",
-                                                                Subscribed = true },
+                                                                SubredditName = "google-news"},
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
-                                                                SubredditName = "abc-news-au",
-                                                                Subscribed = true },
+                                                                SubredditName = "abc-news-au"},
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
-                                                                SubredditName = "bbc-sport",
-                                                                Subscribed = true },
+                                                                SubredditName = "bbc-sport"},
                         new User_X_Subreddit_Subscription() { UserId = user.Id,
-                                                                SubredditName = "reddit",
-                                                                Subscribed = true }
+                                                                SubredditName = "reddit"}
                     };
 
-                    user.Subscriptions = subscriptions;
+                    foreach(var subscription in subscriptions)
+                        _context.User_X_Subreddit_Subscription.Add(subscription);
+
+                    await _context.SaveChangesAsync();
 
                     await _userManager.UpdateAsync(user);
 
