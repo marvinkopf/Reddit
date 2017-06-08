@@ -37,5 +37,8 @@ namespace Reddit.Models
 
         [JsonIgnore]
         public ICollection<User_X_Subreddit_Subscription> SubscribedUsers { get; set; }
+
+        [JsonIgnore]
+        public ICollection<User_X_Subreddit_Moderator> Moderators { get; set; }
     }
 }

@@ -60,6 +60,13 @@ CREATE TABLE user_x_subreddit_subscription (
     PRIMARY KEY(userId, subredditName)
 );
 
+CREATE TABLE user_x_subreddit_moderator (
+    userId VARCHAR(55),
+    subredditName VARCHAR(55),
+    isModerator BOOLEAN,
+    PRIMARY KEY(userId, subredditName)
+);
+
 INSERT INTO subreddits VALUES ("news", 'This is our for general news.', 0);
 INSERT INTO subreddits VALUES ("google-news", "News taken from google.", 0);
 INSERT INTO subreddits VALUES ("abc-news-au", "Abc-news-au.", 0);
