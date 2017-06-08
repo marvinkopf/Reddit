@@ -71,9 +71,6 @@ namespace Reddit.Controllers
                 return this.Content("No valid link");
             }
 
-            if (String.IsNullOrWhiteSpace(urlToImage))
-                urlToImage = "https://cdn2.iconfinder.com/data/icons/network-roundline/512/link-512.png";
-
             var post = new Post(
                             title,
                             link,

@@ -55,7 +55,14 @@
             </div>
             <div class="image">
                 <a href="//@post.Link">
-                    <img src="@post.UrlToImage" style="width:70px;height:70px;margin-left:10px;margin-bottom:10px;">
+                    @if (String.IsNullOrWhiteSpace(post.UrlToImage))
+                    {
+                        <img src="https://cdn2.iconfinder.com/data/icons/network-roundline/512/link-512.png" style="width:70px;height:70px;margin-left:10px;margin-bottom:10px;">
+                    }
+                    else
+                    {
+                        <img src="@post.UrlToImage" style="width:70px;height:70px;margin-left:10px;margin-bottom:10px;">
+                    }
                 </a>
             </div>
             <div class="content">
