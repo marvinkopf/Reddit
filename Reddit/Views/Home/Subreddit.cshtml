@@ -1,9 +1,9 @@
 @inject UserManager<ApplicationUser> userManager
-@model Tuple<IEnumerable<Post>, Subreddit>
+@model SubredditViewModel
 
 <div class="links">
 <ul>
-    @{int i = 1;} @foreach (var post in Model.Item1) {
+    @{int i = 1;} @foreach (var post in Model.Posts) {
     <li>
         <div class="count">@i</div>
         <div class="post">
@@ -82,16 +82,16 @@
         @if (userManager.GetUserId(User) == null)
         {
             <li>
-                <a id="subscribe" href="/Account/Login?ReturnUrl=/r/@Model.Item2.Name" class="">
+                <a id="subscribe" href="/Account/Login?ReturnUrl=/r/@Model.Subreddit.Name" class="">
                     Subscribe
                 </a>
             </li>
         }
-        else if (Model.Item2.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
+        else if (Model.Subreddit.SubscribedUsers.Any(x => x.UserId == userManager.GetUserId(User)
             && x.Subscribed))
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.Item2.Name')" class="">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_unsubscribe('@Model.Subreddit.Name')" class="">
                     Unsubscribe
                 </a>
             </li>
@@ -99,7 +99,7 @@
         else
         {
             <li>
-                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.Item2.Name')" class="">
+                <a id="subscribe" href="javascript:void" onclick="subreddit_subscribe('@Model.Subreddit.Name')" class="">
                     Subscribe
                 </a>
             </li>
@@ -107,11 +107,11 @@
     </ul>
 
     @{
-        var count = Model.Item2.SubscribedUsers.Where(x => x.Subscribed).Count();
+        var count = Model.Subreddit.SubscribedUsers.Where(x => x.Subscribed).Count();
     }
 
     <div style="text-align:center">@count subscribers</div><br>
-    <div style="text-align:center">@Model.Item2.SidebarText</div>
+    <div style="text-align:center">@Model.Subreddit.SidebarText</div>
 </div>
 
 @functions {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Reddit.Data;
 using Reddit.Models;
+using Reddit.Models.HomeViewModels;
 
 namespace Reddit.Controllers
 {
@@ -30,7 +31,9 @@ namespace Reddit.Controllers
             {
                 user = _manager.Users.Include(u => u.Subscriptions).FirstOrDefault(u => u.Id == user.Id);
 
-                return View(new Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>(_context.Posts
+                return View(new IndexViewModel()
+                {
+                    Posts = _context.Posts
                                         .Include(p => p.Comments)
                                         .Include(p => p.Creator)
                                         .Include(p => p.UpvotedBy)
@@ -47,18 +50,23 @@ namespace Reddit.Controllers
                                                         &&
                                                         x.Subscribed))
                                         .OrderByDescending(p => p.Created)
-                                        .Take(30), _context.Subreddits.Include(s => s.SubscribedUsers)));
+                                        .Take(30),
+                    Subreddits = _context.Subreddits.Include(s => s.SubscribedUsers)
+                });
             }
             else
             {
-                return View(new Tuple<IEnumerable<Post>, IEnumerable<Subreddit>>(_context.Posts
+                return View(new IndexViewModel()
+                {
+                    Posts = _context.Posts
                                         .Include(p => p.Comments)
                                         .Include(p => p.Creator)
                                         .Include(p => p.UpvotedBy)
                                         .Include(p => p.DownvotedBy)
                                         .OrderByDescending(p => p.Created)
                                         .Take(30),
-                                        _context.Subreddits.Include(s => s.SubscribedUsers)));
+                    Subreddits = _context.Subreddits.Include(s => s.SubscribedUsers)
+                });
             }
         }
 
@@ -74,7 +82,9 @@ namespace Reddit.Controllers
             if (subreddit == null)
                 return NotFound();
 
-            return View("Subreddit", new Tuple<IEnumerable<Post>, Subreddit>(_context.Posts
+            return View("Subreddit", new SubredditViewModel()
+            {
+                Posts = _context.Posts
                                     .Include(p => p.Comments)
                                     .Include(p => p.Creator)
                                     .Include(p => p.UpvotedBy)
@@ -82,7 +92,8 @@ namespace Reddit.Controllers
                                     .Where(p => p.SubredditName == sub)
                                     .OrderByDescending(p => p.Created)
                                     .Take(30),
-                                    subreddit));
+                Subreddit = subreddit
+            });
         }
 
         [HttpGetAttribute("[action]")]
