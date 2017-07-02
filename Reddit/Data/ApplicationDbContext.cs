@@ -48,6 +48,8 @@ namespace Reddit.Data
 
         public DbSet<User_X_Subreddit_Subscription> User_X_Subreddit_Subscription { get; set; }
 
+        public DbSet<User_X_Subreddit_Moderator> User_X_Subreddit_Moderator { get; set; }
+
         public DbSet<Subreddit> Subreddits { get; set; }
     }
 }

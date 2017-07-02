@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -144,14 +145,35 @@ namespace Reddit.Controllers
             return View("User", user);
         }
 
-        [HttpGet("r/{sub}/[action]")]
-        public IActionResult Settings(string name) => View();
+        [HttpGet("r/{name}/[action]")]
+        public IActionResult Settings(string name)
+        {
+            if (_context.User_X_Subreddit_Moderator.Any(x =>
+                    x.SubredditName.ToLower() == name.ToLower()
+                    && x.UserId == _manager.GetUserId(HttpContext.User)))
+                return View();
+            return NotFound();
+        }
 
-        [HttpGet("r/{sub}/[action]")]
-        public IActionResult Banned(string name) => View();
+        [HttpGet("r/{name}/[action]")]
+        public IActionResult Banned(string name)
+        {
+            if (_context.User_X_Subreddit_Moderator.Any(x =>
+                    x.SubredditName.ToLower() == name.ToLower()
+                    && x.UserId == _manager.GetUserId(HttpContext.User)))
+                return View();
+            return NotFound();
+        }
 
-        [HttpGet("r/{sub}/[action]")]
-        public IActionResult Private(string name) => View();
+        [HttpGet("r/{name}/[action]")]
+        public IActionResult Private(string name)
+        {
+            if (_context.User_X_Subreddit_Moderator.Any(x =>
+                    x.SubredditName.ToLower() == name.ToLower()
+                    && x.UserId == _manager.GetUserId(HttpContext.User)))
+                return View();
+            return NotFound();
+        }
 
         public IActionResult Error()
         {
