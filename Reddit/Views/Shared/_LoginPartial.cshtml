@@ -9,7 +9,7 @@
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <div id="menu">
                 <a href="/user/@UserManager.GetUserName(User)">@UserManager.GetUserName(User)</a>
-                <button style="margin-right:30px;" type="submit" class="">Log off</button>
+                <button style="margin-right:45px;" type="submit" class="">Log off</button>
         </div>
     </form>
 }
@@ -17,6 +17,6 @@ else
 {
     <div id="menu">
         <a asp-controller="Account" asp-action="Register">Register</a>
-        <a style="margin-right:30px;" asp-controller="Account" asp-action="Login">Log in</a>
+        <a style="margin-right:45px;" asp-controller="Account" asp-action="Login">Log in</a>
     </div>
 }
