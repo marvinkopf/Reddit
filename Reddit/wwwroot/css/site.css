@@ -6,6 +6,7 @@ body {
         "header"
         "main"
         "footer";
+    background-color: 	#F5F5F5;
 }
 
 /* Wrapping element */
@@ -15,29 +16,33 @@ body {
     grid-area: main;
     display: grid;
     grid-template-areas:
-        "links sidebar"
+        "links sidebar";
+    min-height: calc(100vh - 86px);
 }
 
 .links {
     grid-area: links;
     width: calc(100vw - 320px);
-    background-color: 	#F5F5F5;
     padding: 15px;
     margin-left: 15px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
     display: table;
+    background-color: white;
+    
 }
 
 #topbar {
-    background: #d3d3d3;
     height: 36px;
     grid-area: header;
+    background-color: #cee3f8;
+    z-index:1;
+    position: relative;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .sidebar {
     grid-area: sidebar;
-    background-color: 	#F5F5F5;
+    background-color: white;
     margin-left: 30px;
     width: 180px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
@@ -53,7 +58,7 @@ body {
 }
 
 .sidebar-links li {
-    background-color: #d3d3d3;
+    background-color: #cee3f8;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
