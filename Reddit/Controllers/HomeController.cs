@@ -73,7 +73,9 @@ namespace Reddit.Controllers
             ViewData["Subtitle"] = sub;
 
             var subreddit = _context.Subreddits
-                                    .Include(s => s.SubscribedUsers).FirstOrDefault(s => s.Name == sub);
+                                    .Include(s => s.SubscribedUsers)
+                                    .Include(s => s.Moderators)
+                                    .FirstOrDefault(s => s.Name == sub);
 
             if (subreddit == null)
                 return NotFound();
@@ -141,6 +143,15 @@ namespace Reddit.Controllers
 
             return View("User", user);
         }
+
+        [HttpGet("r/{sub}/[action]")]
+        public IActionResult Settings(string name) => View();
+
+        [HttpGet("r/{sub}/[action]")]
+        public IActionResult Banned(string name) => View();
+
+        [HttpGet("r/{sub}/[action]")]
+        public IActionResult Private(string name) => View();
 
         public IActionResult Error()
         {

@@ -69,6 +69,10 @@ body {
     color: #369;
 }
 
+.subreddit-tools li a {
+    color: #369;
+}
+
 .header {
     float: left;
     font-size: 18px;

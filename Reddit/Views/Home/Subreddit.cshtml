@@ -63,7 +63,7 @@
                     {
                         <text>[deleted]</text>
                     }
-                    <a href='/post/@post.PostId'>@post.Comments.Count() comments</a>
+                    <a href='/post/@post.PostId'>@post.Comments.Count() comments</a><br>
                 </div>
             </div>
         </div>
@@ -110,7 +110,18 @@
     }
 
     <div style="text-align:center">@count subscribers</div><br>
-    <div style="text-align:center">@Model.Subreddit.SidebarText</div>
+
+    @if (Model.Subreddit.Moderators.Any(uxs => uxs.UserId == userManager.GetUserId(User)))
+    {
+        <div style="text-align:center">Tools</div>
+        <ul style="text-align:center;" class="subreddit-tools">
+            <li><a href="@Model.Subreddit.Name/settings">subreddit settings</a></li>
+            <li><a href="banned">ban users</a></li>
+            <li><a href="private">private user list</a></li>
+        </ul>
+    }
+
+    <br><div style="text-align:center">@Model.Subreddit.SidebarText</div>
 </div>
 
 @functions {
