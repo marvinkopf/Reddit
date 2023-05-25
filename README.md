@@ -5,7 +5,7 @@ Simple reddit clone build with ASP NET CORE + Razor
 ![image](image2.png)
 
 ### Run
-
+j
 Working Dockerfile!
 
 Build with
